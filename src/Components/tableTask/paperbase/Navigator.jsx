@@ -8,9 +8,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
-import PeopleIcon from '@mui/icons-material/People';
-import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
-import PermMediaOutlinedIcon from '@mui/icons-material/PhotoSizeSelectActual';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import HistoryIcon from '@mui/icons-material/History';
 import TimerIcon from '@mui/icons-material/Timer';
 import SettingsIcon from '@mui/icons-material/Settings';
 
@@ -18,13 +18,13 @@ const categories = [
   {
     id: 'Build',
     children: [
-      {
+      {  
         id: 'Bitacora',
-        icon: <PeopleIcon />,
+        icon: <LocalShippingIcon />,
         active: true,
       },
-      { id: 'Historico', icon: <DnsRoundedIcon /> },
-      { id: 'Storage', icon: <PermMediaOutlinedIcon /> },
+      { id: 'Pendientes', icon: <InventoryIcon /> },
+      { id: 'Historico', icon: <HistoryIcon /> },
     ],
   },
   {
