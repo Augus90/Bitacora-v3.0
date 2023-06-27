@@ -16,6 +16,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
       agencia: "",
       numero: 0,
       E4: 0,
+      E4T: 0,
       GPS: 0,
       Tx860: 0,
       Tx700: 0,
@@ -99,6 +100,16 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             name='E4'
             defaultValue={0}
             value={nuevoRemito.E4}
+            onChange={e => addEquipo(e)}
+            />
+        </Grid>
+        <Grid item xs={2}>
+            <TextField id="outlined-number" label="E4T" type="number" InputLabelProps={{
+            shrink: true,
+            }}
+            name='E4T'
+            defaultValue={0}
+            value={nuevoRemito.E4T}
             onChange={e => addEquipo(e)}
             />
         </Grid>

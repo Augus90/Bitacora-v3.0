@@ -36,6 +36,13 @@ let listaDeAgencias = [
   // },
 ];
 
+const ESTADOS = {
+  CREADO: "Creado",
+  EN_PROCESO: "En Proceso",
+  FINALIZADO: "Finalizado",
+  A_DETERMINAR: "A Determinar",
+}
+
 export default function Content() {
 
   const [listaRemitos, setListaRemitos] = useState([])
@@ -43,26 +50,32 @@ export default function Content() {
 
   useEffect( () => {
     getAgencias();
+    getListaRemitos();
   })
 
   function llenarAgencias(jsonDeAgencias){
-    // console.log(jsonDeAgencias.map(agencia => console.log(agencia.nombre)));
     listaDeAgencias = jsonDeAgencias.map( agencia => ({
       value: agencia.nombre,
       label: agencia.nombre,
     }))
-    console.log(listaDeAgencias);
+  }
+
+  function llenarListaRemitosEnProceso(listaDeAgencias){
+    setListaRemitos(listaDeAgencias)
+      // console.log(listaDeAgencias);
   }
 
   const getAgencias = () => {
-    // axios.get('http://localhost:5265/api/Agencias')
-    //   .then(response => console.log(response.data))
-    //   .catch(error => console.log(error))
+    axios.get('http://localhost:5265/api/Agencias')
+      .then(response => llenarAgencias(response.data))
+      .catch(error => console.log(error))
+    
+  }
 
-    fetch('http://localhost:3000/customMockData/2')
-      .then(res => res.json())
-      .then(json =>  llenarAgencias(json))
-      .catch( e => console.log(e))
+  const getListaRemitos = () => {
+    axios.get('http://localhost:5265/api/ListadoRemitos')
+      .then(response => llenarListaRemitosEnProceso(response.data))
+      .catch(error => console.log(error))
   }
 
   return (

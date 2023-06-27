@@ -26,6 +26,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
         "Agencia",
         "Numero",
         "E4",
+        "E4T",
         "GPS",
         "TX860",
         "TX700",
@@ -100,6 +101,9 @@ export default function RemitTable({remitos, setListaRemitos}) {
                                 {remito.E4}
                             </TableCell>
                             <TableCell>
+                                {remito.E4T}
+                            </TableCell>
+                            <TableCell>
                                 {remito.GPS}
                             </TableCell>
                             <TableCell>
@@ -141,8 +145,11 @@ export default function RemitTable({remitos, setListaRemitos}) {
                 <StyledTableCell></StyledTableCell>
                 <StyledTableCell>Total</StyledTableCell>
                 <StyledTableCell></StyledTableCell>
-                <StyledTableCell>
+                <StyledTableCell>   
                     {remitos.reduce((accum, item) => accum + item.E4, 0)}
+                </StyledTableCell>
+                <StyledTableCell>
+                    {remitos.reduce((accum, item) => accum + item.E4T, 0)}
                 </StyledTableCell>
                 <StyledTableCell>
                     {remitos.reduce((accum, item) => accum + item.GPS, 0)}
