@@ -11,34 +11,59 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import RemitTable from '../react-table/remits-table';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Add } from '@mui/icons-material';
 import InputModal from '../react-table/inputModal';
+import axios from 'axios'
 
 
-const listaDeAgencias = [
-  {
-    value: 'SPB',
-    label: 'SPB',
-  },
-  {
-    value: 'CABA',
-    label: 'CABA',
-  },
-  {
-    value: 'Cuidad Arresto',
-    label: 'Cuidad Arresto',
-  },
-  {
-    value: 'Ciudad Genero',
-    label: 'Ciudad Genero',
-  },
+let listaDeAgencias = [
+  // {
+  //   value: 'SPB',
+  //   label: 'SPB',
+  // },
+  // {
+  //   value: 'CABA',
+  //   label: 'CABA',
+  // },
+  // {
+  //   value: 'Cuidad Arresto',
+  //   label: 'Cuidad Arresto',
+  // },
+  // {
+  //   value: 'Ciudad Genero',
+  //   label: 'Ciudad Genero',
+  // },
 ];
 
 export default function Content() {
 
   const [listaRemitos, setListaRemitos] = useState([])
   const [open, setOpen] = useState(false);
+
+  useEffect( () => {
+    getAgencias();
+  })
+
+  function llenarAgencias(jsonDeAgencias){
+    // console.log(jsonDeAgencias.map(agencia => console.log(agencia.nombre)));
+    listaDeAgencias = jsonDeAgencias.map( agencia => ({
+      value: agencia.nombre,
+      label: agencia.nombre,
+    }))
+    console.log(listaDeAgencias);
+  }
+
+  const getAgencias = () => {
+    // axios.get('http://localhost:5265/api/Agencias')
+    //   .then(response => console.log(response.data))
+    //   .catch(error => console.log(error))
+
+    fetch('http://localhost:3000/customMockData/2')
+      .then(res => res.json())
+      .then(json =>  llenarAgencias(json))
+      .catch( e => console.log(e))
+  }
 
   return (
     <Paper sx={{ margin: 'auto', overflow: 'hidden' }}>

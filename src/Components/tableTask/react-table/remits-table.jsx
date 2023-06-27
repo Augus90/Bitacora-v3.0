@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import { Delete, Edit } from "@mui/icons-material";
 import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Button, Popper, Link, ClickAwayListener } from "@mui/material";
 import { format } from "date-fns";
@@ -9,6 +10,17 @@ export default function RemitTable({remitos, setListaRemitos}) {
     const deleteRemit = (remito) => {
         setListaRemitos(remitos.filter( remitoAFiltrar => remitoAFiltrar.id !== remito.id))
     }
+
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        backgroundColor: "gainsboro",
+        // color: theme.palette.common.white,
+      }));
+
+    const StyledTableRow = styled(TableRow)(() => ({
+        '&:nth-of-type(odd)': {
+          backgroundColor: "aliceblue",
+        },
+      }));
 
     const cabeceraDeTabla = [
         "Agencia",
@@ -49,18 +61,18 @@ export default function RemitTable({remitos, setListaRemitos}) {
             <Table>
               <TableHead>
                 <TableRow>
-                    <TableCell padding="checkbox">
+                    <StyledTableCell padding="checkbox">
                         {/* TODO: Select all */}
                         <Checkbox/>
-                    </TableCell>
+                    </StyledTableCell>
                     {cabeceraDeTabla.map( (cabecera, index) => (
-                        <TableCell key={index}>
+                        <StyledTableCell key={index}>
                             {cabecera}
-                        </TableCell>
+                        </StyledTableCell>
                     ))}
-                    <TableCell align="right" width={180}>
+                    <StyledTableCell align="right" width={180}>
                         
-                    </TableCell>
+                    </StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -70,7 +82,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
                     const tieneAccesorios = remito.accesorios.length > 0 ? "ACC" : "";
 
                     return(
-                        <TableRow 
+                        <StyledTableRow 
                             justifyContent="center"
                             key={remito.id}
                             hover
@@ -121,34 +133,36 @@ export default function RemitTable({remitos, setListaRemitos}) {
                                 <Button endIcon={<Delete color="action"/>} onClick={()=>deleteRemit(remito)}></Button>
                             </TableCell>
                             
-                        </TableRow>
+                        </StyledTableRow>
                     )
                 })}
               </TableBody>
               <TableRow>
-                <TableCell></TableCell>
-                <TableCell>Total</TableCell>
-                <TableCell></TableCell>
-                <TableCell>
+                <StyledTableCell></StyledTableCell>
+                <StyledTableCell>Total</StyledTableCell>
+                <StyledTableCell></StyledTableCell>
+                <StyledTableCell>
                     {remitos.reduce((accum, item) => accum + item.E4, 0)}
-                </TableCell>
-                <TableCell>
+                </StyledTableCell>
+                <StyledTableCell>
                     {remitos.reduce((accum, item) => accum + item.GPS, 0)}
-                </TableCell>
-                <TableCell>
+                </StyledTableCell>
+                <StyledTableCell>
                     {remitos.reduce((accum, item) => accum + item.Tx860, 0)}
-                </TableCell>
-                <TableCell>
+                </StyledTableCell>
+                <StyledTableCell>
                     {remitos.reduce((accum, item) => accum + item.Tx700, 0)}
-                </TableCell>
-                <TableCell>
+                </StyledTableCell>
+                <StyledTableCell>
                     {remitos.reduce((accum, item) => accum + item.Tx840, 0)}
-                </TableCell>
-                <TableCell>
+                </StyledTableCell>
+                <StyledTableCell>
                     {remitos.reduce((accum, item) => accum + item.MRD, 0)}
-                </TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
+                </StyledTableCell>
+                <StyledTableCell></StyledTableCell>
+                <StyledTableCell></StyledTableCell>
+                <StyledTableCell></StyledTableCell>
+                <StyledTableCell></StyledTableCell>
                 
               </TableRow>
             </Table>

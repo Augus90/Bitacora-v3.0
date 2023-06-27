@@ -41,6 +41,11 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
         setOpen(false)
       }    
 
+    function onSubmitRemit(e){
+        e.preventDefault()
+        addRemito()
+    }
+
   return (
     <Dialog
     open={open}
@@ -48,7 +53,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
     aria-labelledby="alert-dialog-title"
     aria-describedby="alert-dialog-description"
     >
-    <form>
+    <form onSubmit={onSubmitRemit}>
     <DialogTitle id="alert-dialog-title" >
         {"Nuevo Remito"}
     </DialogTitle>
@@ -175,7 +180,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
         <Button onClick={() => setOpen(false)} autoFocus>
         Cerrar
         </Button>
-        <Button onClick={addRemito} variant='contained'>Crear</Button>
+        <Button type='submit' variant='contained'>Crear</Button>
     </DialogActions>
     </form>
     </Dialog>
