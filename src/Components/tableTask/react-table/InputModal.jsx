@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -7,28 +7,69 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { Grid, Container, TextField, Divider, Button } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import axios from 'axios'
 
-const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
+const InputModal = ({ setListaRemitos, listaRemitos, listaDeAgencias, open, setOpen}) => {
     
     const remitoVacio =
     {
-      id: Date.now().toString(36) + Math.random().toString(36).substring(2),
+    //   id: Date.now().toString(36) + Math.random().toString(36).substring(2),
       agencia: "",
       numero: 0,
-      E4: 0,
-      E4T: 0,
-      GPS: 0,
-      Tx860: 0,
-      Tx700: 0,
-      Tx840: 0,
-      MRD: 0,
+      e4: 0,
+      e4t: 0,
+      gps: 0,
+      tx860: 0,
+      tx700: 0,
+      tx840: 0,
+      mrd: 0,
       accesorios: "",
       createdAt: Date.UTC(0,0,0),
       recivedAt: Date.UTC(0,0,0),
+      compromisedAt: Date.UTC(0,0,0),
       estado: "creado",
+      detalle: "",
+      retira: "",
+    }
+
+    const remitoTest =
+    {
+      id: 100,
+      agencia: "",
+      numero: 0,
+      e4: 0,
+      e4t: 0,
+      gps: 0,
+      tx860: 0,
+      tx700: 0,
+      tx840: 0,
+      mrd: 0,
+      accesorios: "",
+      createdAt: "hoy",
+      recivedAt: "hoy",
+      compromisedAt: "hoy",
+      estado: "creado",
+      detalle: "",
+      retira: "",
     }
     
     const [nuevoRemito, setNuevoRemito] = useState(remitoVacio)
+
+    const APIPut = (nuevoRemito) =>{
+        console.log(nuevoRemito);
+        axios.post('http://localhost:5265/api/ListadoRemitos', nuevoRemito)
+            .then((response) => console.log("Respuesta de post ",response.data))
+            .catch(error => console.log(error))
+
+        // axios.post("https://jsonplaceholder.typicode.com/posts", {
+        //     title: "Hello World!",
+        //     body: "This is a new post."
+        // })
+        // .then((response) => {
+        //     console.log("Psost", response.data);
+        // });
+
+    }
 
     const addEquipo = (evento) => {
         setNuevoRemito(()=>({
@@ -36,9 +77,11 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             [evento.target.name]: Number(evento.target.value)
         }))
     }
+
     const addRemito = () => {
         setListaRemitos((listaActual) => ([...listaActual, nuevoRemito]))
         setNuevoRemito(remitoVacio)
+        APIPut(nuevoRemito)
         setOpen(false)
       }    
 
@@ -70,7 +113,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
                     label="Agencia"
                     defaultValue=""
                     helperText="Seleccione una Agencia"
-                    name='Agencia'
+                    name='agencia'
                     required
                     onChange={e => setNuevoRemito({...nuevoRemito, agencia: e.target.value})}
                     >
@@ -97,9 +140,9 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             <TextField id="outlined-number" label="E4" type="number" InputLabelProps={{
             shrink: true,
             }}
-            name='E4'
+            name='e4'
             defaultValue={0}
-            value={nuevoRemito.E4}
+            value={nuevoRemito.e4}
             onChange={e => addEquipo(e)}
             />
         </Grid>
@@ -107,19 +150,19 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             <TextField id="outlined-number" label="E4T" type="number" InputLabelProps={{
             shrink: true,
             }}
-            name='E4T'
+            name='e4t'
             defaultValue={0}
-            value={nuevoRemito.E4T}
+            value={nuevoRemito.e4t}
             onChange={e => addEquipo(e)}
             />
         </Grid>
         <Grid item>
-            <TextField id="outlined-number" name='GPS' label="GPS" type="number" InputLabelProps={{
+            <TextField id="outlined-number" name='gps' label="GPS" type="number" InputLabelProps={{
             shrink: true,
             }}
             defaultValue={0}
             sx={{width: 75}}
-            value={nuevoRemito.GPS}
+            value={nuevoRemito.gps}
             onChange={e => addEquipo(e)}
             />
         </Grid>
@@ -129,8 +172,8 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             }}
             defaultValue={0}
             sx={{width: 75}}
-            value={nuevoRemito.Tx860}
-            name='Tx860'
+            value={nuevoRemito.tx860}
+            name='tx860'
             onChange={e => addEquipo(e)}
             />
         </Grid>
@@ -140,8 +183,8 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             }}
             defaultValue={0}
             sx={{width: 75}}
-            value={nuevoRemito.Tx700}
-            name='Tx700'
+            value={nuevoRemito.tx700}
+            name='tx700'
             onChange={e => addEquipo(e)}
             />
         </Grid>
@@ -151,8 +194,8 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             }}
             defaultValue={0}
             sx={{width: 75}}
-            value={nuevoRemito.Tx840}
-            name='Tx840'
+            value={nuevoRemito.tx840}
+            name='tx840'
             onChange={e => addEquipo(e)}
             />
         </Grid>
@@ -162,16 +205,16 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             }}
             defaultValue={0}
             sx={{width: 75}}
-            value={nuevoRemito.MRD}
-            name='MRD'
+            value={nuevoRemito.mrd}
+            name='mrd'
             onChange={e => addEquipo(e)}
             />
         </Grid>
             <Grid item sx={{width: 200}}>
-                <DatePicker label="Creado" name="Creado" onChange={(valor) => setNuevoRemito(() => ({...nuevoRemito, createdAt: valor.$d}))}/>
+                <DatePicker label="Creado" name="createdAt" onChange={(valor) => setNuevoRemito(() => ({...nuevoRemito, createdAt: valor.$d}))}/>
             </Grid>
             <Grid item sx={{width: 200}}>
-                <DatePicker label="Recibido" name="Recibido" onChange={(valor) => setNuevoRemito(() => ({...nuevoRemito, recivedAt: valor.$d}))}/>
+                <DatePicker label="Recibido" name="recivedAt" onChange={(valor) => setNuevoRemito(() => ({...nuevoRemito, recivedAt: valor.$d}))}/>
             </Grid>
             <Grid item >
                 <TextField
@@ -191,7 +234,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
         <Button onClick={() => setOpen(false)} autoFocus>
         Cerrar
         </Button>
-        <Button type='submit' variant='contained'>Crear</Button>
+        <Button type='submit' variant='contained' >Crear</Button>
     </DialogActions>
     </form>
     </Dialog>

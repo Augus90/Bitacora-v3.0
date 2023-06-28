@@ -51,7 +51,7 @@ export default function Content() {
   useEffect( () => {
     getAgencias();
     getListaRemitos();
-  })
+  },[])
 
   function llenarAgencias(jsonDeAgencias){
     listaDeAgencias = jsonDeAgencias.map( agencia => ({
@@ -60,9 +60,11 @@ export default function Content() {
     }))
   }
 
-  function llenarListaRemitosEnProceso(listaDeAgencias){
-    setListaRemitos(listaDeAgencias)
-      // console.log(listaDeAgencias);
+  function llenarListaRemitosEnProceso(listaDeRemitos){
+    // setListaRemitos(listaDeAgencias)
+      console.log("Lista de Remitos",listaDeRemitos);
+      setListaRemitos(listaDeRemitos);
+      // console.log("Lsita de remitos", listaRemitos);
   }
 
   const getAgencias = () => {
@@ -113,6 +115,7 @@ export default function Content() {
 
               <InputModal
                 setListaRemitos={setListaRemitos}
+                listaRemitos={listaRemitos}
                 listaDeAgencias={listaDeAgencias}
                 open={open}
                 setOpen={setOpen}/>

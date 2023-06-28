@@ -78,9 +78,9 @@ export default function RemitTable({remitos, setListaRemitos}) {
               </TableHead>
               <TableBody>
                 {remitos.map((remito) =>{
-                    const createdAt = remito.createdAt === Date.UTC(0,0,0) ? "" : format(remito.createdAt, 'dd/MM/yyyy') ;
-                    const recivedAt = remito.recivedAt === Date.UTC(0,0,0) ? "" : format(remito.recivedAt, 'dd/MM/yyyy') ;
-                    const tieneAccesorios = remito.accesorios.length > 0 ? "ACC" : "";
+                    // const createdAt = remito.createdAt === Date.UTC(0,0,0) ? "" : format(remito.createdAt, 'dd/MM/yyyy') ;
+                    // const recivedAt = remito.recivedAt === Date.UTC(0,0,0) ? "" : format(remito.recivedAt, 'dd/MM/yyyy') ;
+                    // const tieneAccesorios = remito.accesorios.length > 0 ? "ACC" : "";
 
                     return(
                         <StyledTableRow 
@@ -98,39 +98,39 @@ export default function RemitTable({remitos, setListaRemitos}) {
                                 {remito.numero}
                             </TableCell>
                             <TableCell>
-                                {remito.E4}
+                                {remito.e4}
                             </TableCell>
                             <TableCell>
-                                {remito.E4T}
+                                {remito.e4t}
                             </TableCell>
                             <TableCell>
-                                {remito.GPS}
+                                {remito.gps}
                             </TableCell>
                             <TableCell>
-                                {remito.Tx860}
+                                {remito.tx860}
                             </TableCell>
                             <TableCell>
-                                {remito.Tx700}
+                                {remito.tx700}
                             </TableCell>
                             <TableCell>
-                                {remito.Tx840}
+                                {remito.tx840}
                             </TableCell>
                             <TableCell>
-                                {remito.MRD}
+                                {remito.mrd}
                             </TableCell>
                             <TableCell>
                                 <Link
                                 component="button"
                                 onClick={e => handleClickPopover(e)}>
-                                    {tieneAccesorios}
+                                    {/* {tieneAccesorios} */}
                                 </Link>
                                 {accesoriosPopover(remito.accesorios)}
                             </TableCell>
                             <TableCell>
-                                {createdAt}
+                                {/* {createdAt} */}
                             </TableCell>
                             <TableCell>
-                                {recivedAt}
+                                {/* {recivedAt} */}
                             </TableCell>
                             <TableCell>
                                 <Button endIcon={<Edit color="action"/>} ></Button>
@@ -146,25 +146,25 @@ export default function RemitTable({remitos, setListaRemitos}) {
                 <StyledTableCell>Total</StyledTableCell>
                 <StyledTableCell></StyledTableCell>
                 <StyledTableCell>   
-                    {remitos.reduce((accum, item) => accum + item.E4, 0)}
+                    {remitos.reduce((accum, item) => accum + item.e4, 0)}
                 </StyledTableCell>
                 <StyledTableCell>
-                    {remitos.reduce((accum, item) => accum + item.E4T, 0)}
+                    {remitos.reduce((accum, item) => accum + item.e4t, 0)}
                 </StyledTableCell>
                 <StyledTableCell>
-                    {remitos.reduce((accum, item) => accum + item.GPS, 0)}
+                    {remitos.reduce((accum, item) => accum + item.gps, 0)}
                 </StyledTableCell>
                 <StyledTableCell>
-                    {remitos.reduce((accum, item) => accum + item.Tx860, 0)}
+                    {remitos.reduce((accum, item) => accum + item.tx860, 0)}
                 </StyledTableCell>
                 <StyledTableCell>
-                    {remitos.reduce((accum, item) => accum + item.Tx700, 0)}
+                    {remitos.reduce((accum, item) => accum + item.tx700, 0)}
                 </StyledTableCell>
                 <StyledTableCell>
-                    {remitos.reduce((accum, item) => accum + item.Tx840, 0)}
+                    {remitos.reduce((accum, item) => accum + item.tx840, 0)}
                 </StyledTableCell>
                 <StyledTableCell>
-                    {remitos.reduce((accum, item) => accum + item.MRD, 0)}
+                    {remitos.reduce((accum, item) => accum + item.mrd, 0)}
                 </StyledTableCell>
                 <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>
