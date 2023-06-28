@@ -1,14 +1,23 @@
 import styled from "@emotion/styled";
 import { Delete, Edit } from "@mui/icons-material";
 import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Button, Popper, Link, ClickAwayListener } from "@mui/material";
+import axios from "axios";
 import { format } from "date-fns";
 import { useState } from "react";
 
 
-export default function RemitTable({remitos, setListaRemitos}) {
+export default function RemitTable({remitos, setListaRemitos, getListaRemitos,}) {
 
-    const deleteRemit = (remito) => {
-        setListaRemitos(remitos.filter( remitoAFiltrar => remitoAFiltrar.id !== remito.id))
+    const deleteRemit = (idRemito) => {
+        axios.delete(`http://localhost:5265/api/ListadoRemitos/${idRemito}`)
+        .then((response) => console.log("Respuesta de delete ",response.data))
+        .catch(error => console.log(error))
+
+        setListaRemitos(remitosActual => {
+            return remitosActual.filter( remitoAFiltrar => remitoAFiltrar.id !== id)
+            })
+            
+        getListaRemitos()
     }
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -101,7 +110,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
                                 {remito.e4}
                             </TableCell>
                             <TableCell>
-                                {remito.e4t}
+                                {remito.e4T}
                             </TableCell>
                             <TableCell>
                                 {remito.gps}
@@ -134,7 +143,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
                             </TableCell>
                             <TableCell>
                                 <Button endIcon={<Edit color="action"/>} ></Button>
-                                <Button endIcon={<Delete color="action"/>} onClick={()=>deleteRemit(remito)}></Button>
+                                <Button endIcon={<Delete color="action"/>} onClick={()=>deleteRemit(remito.id)}></Button>
                             </TableCell>
                             
                         </StyledTableRow>
@@ -149,7 +158,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
                     {remitos.reduce((accum, item) => accum + item.e4, 0)}
                 </StyledTableCell>
                 <StyledTableCell>
-                    {remitos.reduce((accum, item) => accum + item.e4t, 0)}
+                    {remitos.reduce((accum, item) => accum + item.e4T, 0)}
                 </StyledTableCell>
                 <StyledTableCell>
                     {remitos.reduce((accum, item) => accum + item.gps, 0)}

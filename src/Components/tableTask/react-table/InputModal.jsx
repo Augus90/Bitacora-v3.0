@@ -9,15 +9,16 @@ import MenuItem from '@mui/material/MenuItem';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import axios from 'axios'
 
-const InputModal = ({ setListaRemitos, listaRemitos, listaDeAgencias, open, setOpen}) => {
+const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
     
     const remitoVacio =
     {
     //   id: Date.now().toString(36) + Math.random().toString(36).substring(2),
+      id: 0,
       agencia: "",
       numero: 0,
       e4: 0,
-      e4t: 0,
+      e4T: 0,
       gps: 0,
       tx860: 0,
       tx700: 0,
@@ -150,9 +151,9 @@ const InputModal = ({ setListaRemitos, listaRemitos, listaDeAgencias, open, setO
             <TextField id="outlined-number" label="E4T" type="number" InputLabelProps={{
             shrink: true,
             }}
-            name='e4t'
+            name='e4T'
             defaultValue={0}
-            value={nuevoRemito.e4t}
+            value={nuevoRemito.e4T}
             onChange={e => addEquipo(e)}
             />
         </Grid>

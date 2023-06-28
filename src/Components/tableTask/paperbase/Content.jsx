@@ -53,6 +53,7 @@ export default function Content() {
     getListaRemitos();
   },[])
 
+
   function llenarAgencias(jsonDeAgencias){
     listaDeAgencias = jsonDeAgencias.map( agencia => ({
       value: agencia.nombre,
@@ -132,6 +133,7 @@ export default function Content() {
       <Typography color="text.secondary" align="center">
         <RemitTable
           remitos={listaRemitos}
+          getListaRemitos={getListaRemitos}
           setListaRemitos={setListaRemitos}
         >
 
