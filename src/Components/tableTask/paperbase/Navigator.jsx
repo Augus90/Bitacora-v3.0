@@ -13,6 +13,8 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import HistoryIcon from '@mui/icons-material/History';
 import TimerIcon from '@mui/icons-material/Timer';
 import SettingsIcon from '@mui/icons-material/Settings';
+import Content from './Content';
+import { Link } from 'react-router-dom';
 
 const categories = [
   {
@@ -21,17 +23,17 @@ const categories = [
       {  
         id: 'Bitacora',
         icon: <LocalShippingIcon />,
-        active: true,
+        link: '/'
       },
-      { id: 'Pendientes', icon: <InventoryIcon /> },
-      { id: 'Historico', icon: <HistoryIcon /> },
+      { id: 'Pendientes', icon: <InventoryIcon />, link: '/Pendientes'},
+      { id: 'Historico', icon: <HistoryIcon /> , link: '/Historico'},
     ],
   },
   {
     id: 'Quality',
     children: [
-      { id: 'Analytics', icon: <SettingsIcon /> },
-      { id: 'Performance', icon: <TimerIcon /> },
+      { id: 'Analytics', icon: <SettingsIcon />, link: '/Analitics' },
+      { id: 'Performance', icon: <TimerIcon /> , link: '/Performance'},
     ],
   },
 ];
@@ -54,6 +56,8 @@ const itemCategory = {
 export default function Navigator(props) {
   const { ...other } = props;
 
+  const [activo, setActivo] = React.useState('Bitacora');
+
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
@@ -71,13 +75,15 @@ export default function Navigator(props) {
             <ListItem sx={{ py: 2, px: 3 }}>
               <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active }) => (
-              <ListItem disablePadding key={childId}>
-                <ListItemButton selected={active} sx={item}>
-                  <ListItemIcon>{icon}</ListItemIcon>
-                  <ListItemText>{childId}</ListItemText>
-                </ListItemButton>
-              </ListItem>
+            {children.map(({ id: childId, icon, link }) => (
+                <Link key={childId} to={link} style={{textDecoration:"none"}}>
+                <ListItem disablePadding >
+                  <ListItemButton selected={childId === activo} sx={item} onClick={()=> setActivo(childId)}>
+                    <ListItemIcon>{icon}</ListItemIcon>
+                    <ListItemText>{childId}</ListItemText>
+                  </ListItemButton>
+                </ListItem>
+                </Link>
             ))}
 
             <Divider sx={{ mt: 2 }} />

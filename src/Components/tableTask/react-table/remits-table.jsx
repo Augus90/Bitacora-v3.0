@@ -1,27 +1,32 @@
 import styled from "@emotion/styled";
 import { Delete, Edit } from "@mui/icons-material";
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Button, Popper, Link, ClickAwayListener } from "@mui/material";
 import axios from "axios";
 import { format } from "date-fns";
 import { useState } from "react";
 
 
+
 export default function RemitTable({remitos, setListaRemitos, getListaRemitos,}) {
 
-    const deleteRemit = (idRemito) => {
-        axios.delete(`http://localhost:5265/api/ListadoRemitos/${idRemito}`)
+    const deleteRemit = async (idRemito) => {
+        await axios.delete(`http://localhost:5265/api/ListadoRemitos/${idRemito}`)
         .then((response) => console.log("Respuesta de delete ",response.data))
         .catch(error => console.log(error))
 
-        setListaRemitos(remitosActual => {
-            return remitosActual.filter( remitoAFiltrar => remitoAFiltrar.id !== id)
-            })
+        setListaRemitos(remitosActual => (
+            remitosActual.filter( remitoAFiltrar => remitoAFiltrar.id !== id)
+        ))
             
         getListaRemitos()
     }
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
-        backgroundColor: "gainsboro",
+        // backgroundColor: "gainsboro",
+        backgroundColor: "whitesmoke",
         // color: theme.palette.common.white,
       }));
 
@@ -81,7 +86,11 @@ export default function RemitTable({remitos, setListaRemitos, getListaRemitos,})
                         </StyledTableCell>
                     ))}
                     <StyledTableCell align="right" width={180}>
-                        
+                        <Tooltip title="Reload">
+                            <IconButton>
+                            <RefreshIcon color="inherit" sx={{ display: 'block' }} />
+                            </IconButton>
+                        </Tooltip>
                     </StyledTableCell>
                 </TableRow>
               </TableHead>

@@ -8,6 +8,10 @@ import Link from '@mui/material/Link';
 import Navigator from './Navigator';
 import Content from './Content';
 import Header from './Header';
+import { Route, Router, Routes } from 'react-router-dom';
+import TablePendientes from '../react-table/TablePendientes';
+import TableHistorico from '../react-table/TableHistorico';
+import TabsBitacora from './TabsBitacora';
 
 function Copyright() {
   return (
@@ -168,11 +172,10 @@ const drawerWidth = 256;
 
 export default function Paperbase() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
     <ThemeProvider theme={theme}>
@@ -198,8 +201,12 @@ export default function Paperbase() {
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Header onDrawerToggle={handleDrawerToggle} />
-          <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
-            <Content />
+          <Box component="main" sx={{ flex: 1, bgcolor: '#eaeff1' }}>
+            <Routes>
+              <Route path='/' Component={TabsBitacora}/>
+              <Route path='/Pendientes' Component={TablePendientes}/>
+              <Route path='/Historico' Component={TableHistorico}/>
+            </Routes>
           </Box>
           <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
             <Copyright />

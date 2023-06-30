@@ -102,22 +102,6 @@ function Header(props) {
           </Grid>
         </Toolbar>
       </AppBar>
-      <AppBar component="div" position="static" elevation={0} sx={{ zIndex: 0 }}>
-        <Tabs value={0} textColor="inherit">
-          <Tab label="Diario" />
-          <Tab label="Termiando" />
-          <Tab label="Mañana" />
-        </Tabs>
-        {/* <TabPanel value={value} index={0}>
-          Item One
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          Item Two
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          Item Three
-        </TabPanel> */}
-      </AppBar>
     </React.Fragment>
   );
 }

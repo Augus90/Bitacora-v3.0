@@ -72,7 +72,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
 
     }
 
-    const addEquipo = (evento) => {
+    const AgregarEquipoAlRemito = (evento) => {
         setNuevoRemito(()=>({
             ...nuevoRemito,
             [evento.target.name]: Number(evento.target.value)
@@ -132,7 +132,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
                 name='numero'
                 defaultValue={0}
                 value={nuevoRemito.numero}
-                onChange={e => addEquipo(e)} />
+                onChange={e => AgregarEquipoAlRemito(e)} />
                 </Grid>
             </Grid>
             </Container>
@@ -144,7 +144,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             name='e4'
             defaultValue={0}
             value={nuevoRemito.e4}
-            onChange={e => addEquipo(e)}
+            onChange={e => AgregarEquipoAlRemito(e)}
             />
         </Grid>
         <Grid item xs={2}>
@@ -154,7 +154,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             name='e4T'
             defaultValue={0}
             value={nuevoRemito.e4T}
-            onChange={e => addEquipo(e)}
+            onChange={e => AgregarEquipoAlRemito(e)}
             />
         </Grid>
         <Grid item>
@@ -164,7 +164,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             defaultValue={0}
             sx={{width: 75}}
             value={nuevoRemito.gps}
-            onChange={e => addEquipo(e)}
+            onChange={e => AgregarEquipoAlRemito(e)}
             />
         </Grid>
         <Grid item>
@@ -175,7 +175,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             sx={{width: 75}}
             value={nuevoRemito.tx860}
             name='tx860'
-            onChange={e => addEquipo(e)}
+            onChange={e => AgregarEquipoAlRemito(e)}
             />
         </Grid>
         <Grid item>
@@ -186,7 +186,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             sx={{width: 75}}
             value={nuevoRemito.tx700}
             name='tx700'
-            onChange={e => addEquipo(e)}
+            onChange={e => AgregarEquipoAlRemito(e)}
             />
         </Grid>
         <Grid item>
@@ -197,7 +197,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             sx={{width: 75}}
             value={nuevoRemito.tx840}
             name='tx840'
-            onChange={e => addEquipo(e)}
+            onChange={e => AgregarEquipoAlRemito(e)}
             />
         </Grid>
         <Grid item>
@@ -208,7 +208,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             sx={{width: 75}}
             value={nuevoRemito.mrd}
             name='mrd'
-            onChange={e => addEquipo(e)}
+            onChange={e => AgregarEquipoAlRemito(e)}
             />
         </Grid>
             <Grid item sx={{width: 200}}>
