@@ -1,13 +1,14 @@
-import {useEffect, useState} from 'react'
+import { useState} from 'react'
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Autocomplete from '@mui/material/Autocomplete';
 import { Grid, Container, TextField, Divider, Button } from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import axios from 'axios'
+import { agregarRemitoALista } from '../../../Utils/API';
 
 const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
     
@@ -32,45 +33,9 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
       detalle: "",
       retira: "",
     }
-
-    const remitoTest =
-    {
-      id: 100,
-      agencia: "",
-      numero: 0,
-      e4: 0,
-      e4t: 0,
-      gps: 0,
-      tx860: 0,
-      tx700: 0,
-      tx840: 0,
-      mrd: 0,
-      accesorios: "",
-      createdAt: "hoy",
-      recivedAt: "hoy",
-      compromisedAt: "hoy",
-      estado: "creado",
-      detalle: "",
-      retira: "",
-    }
     
     const [nuevoRemito, setNuevoRemito] = useState(remitoVacio)
 
-    const APIPut = (nuevoRemito) =>{
-        console.log(nuevoRemito);
-        axios.post('http://localhost:5265/api/ListadoRemitos', nuevoRemito)
-            .then((response) => console.log("Respuesta de post ",response.data))
-            .catch(error => console.log(error))
-
-        // axios.post("https://jsonplaceholder.typicode.com/posts", {
-        //     title: "Hello World!",
-        //     body: "This is a new post."
-        // })
-        // .then((response) => {
-        //     console.log("Psost", response.data);
-        // });
-
-    }
 
     const AgregarEquipoAlRemito = (evento) => {
         setNuevoRemito(()=>({
@@ -81,8 +46,8 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
 
     const addRemito = () => {
         setListaRemitos((listaActual) => ([...listaActual, nuevoRemito]))
+        agregarRemitoALista(nuevoRemito)
         setNuevoRemito(remitoVacio)
-        APIPut(nuevoRemito)
         setOpen(false)
       }    
 
@@ -108,22 +73,16 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
         <Container id="alert-dialog-container" >
             <Grid container>
             <Grid item xs={5}>
-                <TextField
+                <Autocomplete
+                    disablePortal
                     id="outlined-select-currency"
-                    select
-                    label="Agencia"
-                    defaultValue=""
-                    helperText="Seleccione una Agencia"
-                    name='agencia'
+                    options={listaDeAgencias}
                     required
-                    onChange={e => setNuevoRemito({...nuevoRemito, agencia: e.target.value})}
-                    >
-                {listaDeAgencias.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                    </MenuItem>
-                ))}
-                </TextField>
+                    inputValue={nuevoRemito.agencia}
+                    onInputChange={(event, newValue) => setNuevoRemito({...nuevoRemito, agencia: newValue})}
+                    renderInput={(params) => <TextField {...params} label="Agencia" />}
+                />
+
             </Grid>
             <Grid item xs={4}>
                 <TextField id="outlined-number" label="Numero" type="number" InputLabelProps={{
@@ -217,12 +176,13 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             <Grid item sx={{width: 200}}>
                 <DatePicker label="Recibido" name="recivedAt" onChange={(valor) => setNuevoRemito(() => ({...nuevoRemito, recivedAt: valor.$d}))}/>
             </Grid>
-            <Grid item >
+            <Grid item sx={{width: 300}}>
                 <TextField
                 id="outlined-multiline-static"
                 label="Accesorios"
                 multiline
                 rows={3}
+                fullWidth 
                 placeholder='Accesorios...'
                 defaultValue=""
                 onChange={e => setNuevoRemito({...nuevoRemito, accesorios: e.target.value})}

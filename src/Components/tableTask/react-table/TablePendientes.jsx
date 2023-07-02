@@ -15,7 +15,7 @@ import RemitTable from '../react-table/remits-table';
 import { useEffect, useState } from 'react';
 import { Add } from '@mui/icons-material';
 import InputModal from './InputModal';
-import axios from 'axios'
+import { getAgencias, getListaRemitos } from '../../../Utils/API';
 
 
 let listaDeAgencias = [];
@@ -28,8 +28,12 @@ const TablePendientes = () => {
 
 
     useEffect( () => {
-      getAgencias();
-      getListaRemitos();
+      getAgencias()
+        .then(agencias => llenarAgencias(agencias))
+        .catch(e => console.error(e))
+      getListaRemitos()
+        .then(lista => llenarListaRemitos(lista))
+        .catch(e => console.error(e))
     },[])
 
 
@@ -40,25 +44,11 @@ const TablePendientes = () => {
       }))
     }
 
-    function llenarListaRemitosEnProceso(listaDeRemitos){
-      // setListaRemitos(listaDeAgencias)
+    function llenarListaRemitos(listaDeRemitos){
         console.log("Lista de Remitos",listaDeRemitos);
         setListaRemitos(listaDeRemitos);
-        // console.log("Lsita de remitos", listaRemitos);
     }
 
-    const getAgencias = () => {
-      axios.get('http://localhost:5265/api/Agencias')
-        .then(response => llenarAgencias(response.data))
-        .catch(error => console.log(error))
-      
-    }
-
-    const getListaRemitos = () => {
-      axios.get('http://localhost:5265/api/ListadoRemitos')
-        .then(response => llenarListaRemitosEnProceso(response.data))
-        .catch(error => console.log(error))
-    }
   return (
     <div>
       <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
@@ -114,7 +104,6 @@ const TablePendientes = () => {
           <Typography color="text.secondary" align="center">
             <RemitTable
               remitos={listaRemitos}
-              getListaRemitos={getListaRemitos}
               setListaRemitos={setListaRemitos}
             >
 

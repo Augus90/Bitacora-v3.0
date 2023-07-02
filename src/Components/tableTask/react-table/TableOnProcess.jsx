@@ -1,60 +1,44 @@
+import React from 'react'
 import styled from "@emotion/styled";
-import { Delete, Edit } from "@mui/icons-material";
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Button, Popper, Link, ClickAwayListener } from "@mui/material";
-import { format } from "date-fns";
+import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Popper, Link, ClickAwayListener } from "@mui/material";
 import { useState } from "react";
-import { borrarRemitoDeLista, getListaRemitos } from "../../../Utils/API";
 
 
-
-export default function RemitTable({remitos, setListaRemitos}) {
-
-    const deleteRemit = async (idRemito) => {
-
-        await borrarRemitoDeLista(idRemito)
-
-        setListaRemitos(remitosActual => (
-            remitosActual.filter( remitoAFiltrar => remitoAFiltrar.id !== id)
-        ))
-            
-        getListaRemitos()
-            .then(lista => setListaRemitos(lista))
-    }
+const TableOnProcess = ({remitos, setListaRemitos}) => {
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         // backgroundColor: "gainsboro",
         backgroundColor: "whitesmoke",
         // color: theme.palette.common.white,
-      }));
-
+    }));
+    
     const StyledTableRow = styled(TableRow)(() => ({
         '&:nth-of-type(odd)': {
-          backgroundColor: "aliceblue",
+        backgroundColor: "aliceblue",
         },
-      }));
+    }));   
 
     const cabeceraDeTabla = [
-        "Agencia",
-        "Numero",
-        "E4",
-        "E4T",
-        "GPS",
-        "TX860",
-        "TX700",
-        "TX840",
-        "MRD",
-        "Accesorios",
-        "Creado",
-        "Recepcion",
-    ]
+            "Agencia",
+            "Numero",
+            "E4",
+            "E4T",
+            "GPS",
+            "TX860",
+            "TX700",
+            "TX840",
+            "MRD",
+            "Accesorios",
+        ]
 
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleClickPopover = (event) => {
-      setAnchorEl(anchorEl ? null : event.currentTarget);
+    //   setAnchorEl(anchorEl ? null : event.currentTarget);
     };
   
     const openPopover = Boolean(anchorEl);
@@ -88,7 +72,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
                     <StyledTableCell align="right" width={180}>
                         <Tooltip title="Reload">
                             <IconButton>
-                            <RefreshIcon color="inherit" sx={{ display: 'block' }} />
+                                <RefreshIcon color="inherit" sx={{ display: 'block' }} />
                             </IconButton>
                         </Tooltip>
                     </StyledTableCell>
@@ -98,7 +82,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
                 {remitos.map((remito) =>{
                     // const createdAt = remito.createdAt === Date.UTC(0,0,0) ? "" : format(remito.createdAt, 'dd/MM/yyyy') ;
                     // const recivedAt = remito.recivedAt === Date.UTC(0,0,0) ? "" : format(remito.recivedAt, 'dd/MM/yyyy') ;
-                    // const tieneAccesorios = remito.accesorios.length > 0 ? "ACC" : "";
+                    const tieneAccesorios = remito.accesorios.length > 0 ? "ACC" : "";
 
                     return(
                         <StyledTableRow 
@@ -140,21 +124,13 @@ export default function RemitTable({remitos, setListaRemitos}) {
                                 <Link
                                 component="button"
                                 onClick={e => handleClickPopover(e)}>
-                                    {/* {tieneAccesorios} */}
+                                    {tieneAccesorios}
                                 </Link>
                                 {accesoriosPopover(remito.accesorios)}
                             </TableCell>
                             <TableCell>
-                                {/* {createdAt} */}
-                            </TableCell>
-                            <TableCell>
-                                {/* {recivedAt} */}
-                            </TableCell>
-                            <TableCell>
-                                <Button endIcon={<Edit color="action"/>} ></Button>
-                                <Button endIcon={<Delete color="action"/>} onClick={()=>deleteRemit(remito.id)}></Button>
-                            </TableCell>
-                            
+                                <ExpandMoreIcon />
+                            </TableCell>          
                         </StyledTableRow>
                     )
                 })}
@@ -186,8 +162,6 @@ export default function RemitTable({remitos, setListaRemitos}) {
                 </StyledTableCell>
                 <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>
-                <StyledTableCell></StyledTableCell>
-                <StyledTableCell></StyledTableCell>
                 
               </TableRow>
             </Table>
@@ -195,3 +169,5 @@ export default function RemitTable({remitos, setListaRemitos}) {
         </Card>
     )
 }
+
+export default TableOnProcess
