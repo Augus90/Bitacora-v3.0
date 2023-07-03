@@ -8,12 +8,7 @@ import { getListaRemitos } from '../../../Utils/API';
 
 // let listaDeAgencias = [];
 
-const ESTADOS = {
-  CREADO: "Creado",
-  EN_PROCESO: "En Proceso",
-  FINALIZADO: "Finalizado",
-  A_DETERMINAR: "A Determinar",
-}
+
 
 export default function Content() {
 

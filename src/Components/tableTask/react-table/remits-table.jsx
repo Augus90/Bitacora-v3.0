@@ -3,7 +3,7 @@ import { Delete, Edit } from "@mui/icons-material";
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Button, Popper, Link, ClickAwayListener } from "@mui/material";
+import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Button, Popper, Link, ClickAwayListener, Chip } from "@mui/material";
 import { format } from "date-fns";
 import { useState } from "react";
 import { borrarRemitoDeLista, getListaRemitos } from "../../../Utils/API";
@@ -37,6 +37,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
       }));
 
     const cabeceraDeTabla = [
+        "Estado",
         "Agencia",
         "Numero",
         "E4",
@@ -76,10 +77,10 @@ export default function RemitTable({remitos, setListaRemitos}) {
             <Table>
               <TableHead>
                 <TableRow>
-                    <StyledTableCell padding="checkbox">
+                    {/* <StyledTableCell padding="checkbox"> */}
                         {/* TODO: Select all */}
-                        <Checkbox/>
-                    </StyledTableCell>
+                        {/* <Checkbox/> */}
+                    {/* </StyledTableCell> */}
                     {cabeceraDeTabla.map( (cabecera, index) => (
                         <StyledTableCell key={index}>
                             {cabecera}
@@ -98,7 +99,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
                 {remitos.map((remito) =>{
                     // const createdAt = remito.createdAt === Date.UTC(0,0,0) ? "" : format(remito.createdAt, 'dd/MM/yyyy') ;
                     // const recivedAt = remito.recivedAt === Date.UTC(0,0,0) ? "" : format(remito.recivedAt, 'dd/MM/yyyy') ;
-                    // const tieneAccesorios = remito.accesorios.length > 0 ? "ACC" : "";
+                    const tieneAccesorios = remito.accesorios.length > 0 ? "ACC" : "";
 
                     return(
                         <StyledTableRow 
@@ -106,8 +107,11 @@ export default function RemitTable({remitos, setListaRemitos}) {
                             key={remito.id}
                             hover
                             >
-                            <TableCell padding="checkbox">
+                            {/* <TableCell padding="checkbox">
                                 <Checkbox />
+                            </TableCell> */}
+                            <TableCell>
+                                <Chip label={remito.estado} variant="outlined" color="primary" onClick={() => console.log("Click")} />
                             </TableCell>
                             <TableCell>
                                 {remito.agencia}
@@ -140,7 +144,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
                                 <Link
                                 component="button"
                                 onClick={e => handleClickPopover(e)}>
-                                    {/* {tieneAccesorios} */}
+                                    {tieneAccesorios}
                                 </Link>
                                 {accesoriosPopover(remito.accesorios)}
                             </TableCell>
@@ -160,9 +164,9 @@ export default function RemitTable({remitos, setListaRemitos}) {
                 })}
               </TableBody>
               <TableRow>
+                {/* <StyledTableCell></StyledTableCell> */}
                 <StyledTableCell></StyledTableCell>
                 <StyledTableCell>Total</StyledTableCell>
-                <StyledTableCell></StyledTableCell>
                 <StyledTableCell>   
                     {remitos.reduce((accum, item) => accum + item.e4, 0)}
                 </StyledTableCell>
@@ -184,6 +188,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
                 <StyledTableCell>
                     {remitos.reduce((accum, item) => accum + item.mrd, 0)}
                 </StyledTableCell>
+                <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>

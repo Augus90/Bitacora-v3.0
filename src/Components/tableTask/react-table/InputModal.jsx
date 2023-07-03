@@ -7,14 +7,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Grid, Container, TextField, Divider, Button } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import axios from 'axios'
 import { agregarRemitoALista } from '../../../Utils/API';
+import { ESTADOS } from '../../../Utils/enums';
 
 const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
     
     const remitoVacio =
     {
-    //   id: Date.now().toString(36) + Math.random().toString(36).substring(2),
       id: 0,
       agencia: "",
       numero: 0,
@@ -29,7 +28,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
       createdAt: Date.UTC(0,0,0),
       recivedAt: Date.UTC(0,0,0),
       compromisedAt: Date.UTC(0,0,0),
-      estado: "creado",
+      estado: ESTADOS.CREADO,
       detalle: "",
       retira: "",
     }
