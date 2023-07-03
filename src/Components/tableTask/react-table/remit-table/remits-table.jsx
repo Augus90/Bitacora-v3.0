@@ -3,10 +3,11 @@ import { Delete, Edit } from "@mui/icons-material";
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Button, Popper, Link, ClickAwayListener, Chip } from "@mui/material";
+import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Button, Popper, Link, ClickAwayListener } from "@mui/material";
 import { format } from "date-fns";
 import { useState } from "react";
-import { borrarRemitoDeLista, getListaRemitos } from "../../../Utils/API";
+import { borrarRemitoDeLista, getListaRemitos } from "../../../../Utils/API";
+import StateChangeButton from "./StateChangeButton";
 
 
 
@@ -111,7 +112,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
                                 <Checkbox />
                             </TableCell> */}
                             <TableCell>
-                                <Chip label={remito.estado} variant="outlined" color="primary" onClick={() => console.log("Click")} />
+                                <StateChangeButton setListaRemitos={setListaRemitos} remito={remito}/>
                             </TableCell>
                             <TableCell>
                                 {remito.agencia}

@@ -11,7 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import RemitTable from '../react-table/remits-table';
+import RemitTable from './remit-table/remits-table';
 import { useEffect, useState } from 'react';
 import { Add } from '@mui/icons-material';
 import InputModal from './InputModal';

@@ -35,3 +35,12 @@ export const borrarRemitoDeLista = async (idRemito) => {
         .then((response) => console.log("Respuesta de delete ",response.data))
         .catch(error => console.log("error", error))
     }
+  
+export const editarRemitoDeLista = async (id, nuevoEditado) =>{
+  console.log("remito editado",nuevoEditado);
+  let respuesta = null;
+  await axios.put(`${baseURL}ListadoRemitos/`, nuevoEditado)
+      .then((response) => respuesta = response.data)
+      .catch(error => console.log(error))
+  return respuesta;
+}
