@@ -1,4 +1,3 @@
-import React from 'react'
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,7 +14,7 @@ import RemitTable from './remit-table/remits-table';
 import { useEffect, useState } from 'react';
 import { Add } from '@mui/icons-material';
 import InputModal from './InputModal';
-import { getAgencias, getListaRemitos } from '../../../Utils/API';
+import { getAgencias, getListaRemitos } from '../../Utils/API';
 
 
 let listaDeAgencias = [];

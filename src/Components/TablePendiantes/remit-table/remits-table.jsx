@@ -3,39 +3,35 @@ import { Delete, Edit } from "@mui/icons-material";
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Button, Popper, Link, ClickAwayListener } from "@mui/material";
-import { format } from "date-fns";
-import { useState } from "react";
-import { borrarRemitoDeLista, getListaRemitos } from "../../../../Utils/API";
+import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Button, Popper, Popover, Link, ClickAwayListener } from "@mui/material";
+import { useEffect, useState } from "react";
+import { borrarRemitoDeLista, getListaRemitos} from '../../../Utils/API'
 import StateChangeButton from "./StateChangeButton";
 
 
 
 export default function RemitTable({remitos, setListaRemitos}) {
 
-    const deleteRemit = async (idRemito) => {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [openId, setOpenId] = useState(0);
 
-        await borrarRemitoDeLista(idRemito)
-
-        setListaRemitos(remitosActual => (
-            remitosActual.filter( remitoAFiltrar => remitoAFiltrar.id !== id)
-        ))
-            
-        getListaRemitos()
-            .then(lista => setListaRemitos(lista))
-    }
-
-    const StyledTableCell = styled(TableCell)(({ theme }) => ({
-        // backgroundColor: "gainsboro",
-        backgroundColor: "whitesmoke",
-        // color: theme.palette.common.white,
-      }));
-
-    const StyledTableRow = styled(TableRow)(() => ({
-        '&:nth-of-type(odd)': {
-          backgroundColor: "aliceblue",
-        },
-      }));
+    // useEffect(() => {
+        // if(openId){
+        //     <Popover 
+        //     id={id} 
+        //     open={open} 
+        //     anchorEl={anchorEl} 
+        //     onClose={() => setAnchorEl(false)}
+        //     anchorOrigin={{
+        //         vertical: 'bottom',
+        //         horizontal: 'left',
+        //     }}>
+        //         <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
+        //             {remito.accesorios}
+        //         </Box>
+        // </Popover> 
+        // }      
+    // }, [openId])
 
     const cabeceraDeTabla = [
         "Estado",
@@ -51,26 +47,52 @@ export default function RemitTable({remitos, setListaRemitos}) {
         "Accesorios",
         "Creado",
         "Recepcion",
+        "Comprometido",
+        "Detalle",
+        "Retira"
     ]
 
-    const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleClickPopover = (event) => {
-      setAnchorEl(anchorEl ? null : event.currentTarget);
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        // backgroundColor: "gainsboro",
+        backgroundColor: "whitesmoke",
+        // color: theme.palette.common.white,
+      }));
+
+    const StyledTableRow = styled(TableRow)(() => ({
+        '&:nth-of-type(odd)': {
+          backgroundColor: "aliceblue",
+        },
+      }));
+
+    const deleteRemit = async (idRemito) => {
+        await borrarRemitoDeLista(idRemito)
+        setListaRemitos(remitosActual => (
+            remitosActual.filter( remitoAFiltrar => remitoAFiltrar.id !== id)
+        ))
+        getListaRemitos()
+            .then(lista => setListaRemitos(lista))
+    }
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popper' : undefined;
+
+    const handleClickPopover = (event, accesorio) => {
+      setAnchorEl(event.currentTarget);
+        console.log(event);
+        accesoriosPopover(accesorio, )
     };
   
-    const openPopover = Boolean(anchorEl);
-    const id = openPopover ? 'simple-popper' : undefined;
-  
-    const accesoriosPopover = (accesorios) => (
-        <Popper id={id} open={openPopover} anchorEl={anchorEl}>
+    const accesoriosPopover = (accesorio) => {
+        // openPopover = openId === id;
+        <Popover id='simple-popper' open={true} anchorEl={anchorEl}>
             <ClickAwayListener onClickAway={() => setAnchorEl(false)}>
                 <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
-                {accesorios}
+                    {accesorio}
                 </Box>
             </ClickAwayListener>
-        </Popper>
-    )
+        </Popover> 
+    }
 
     return(
         <Card>
@@ -104,13 +126,9 @@ export default function RemitTable({remitos, setListaRemitos}) {
 
                     return(
                         <StyledTableRow 
-                            justifyContent="center"
                             key={remito.id}
                             hover
                             >
-                            {/* <TableCell padding="checkbox">
-                                <Checkbox />
-                            </TableCell> */}
                             <TableCell>
                                 <StateChangeButton setListaRemitos={setListaRemitos} remito={remito}/>
                             </TableCell>
@@ -142,18 +160,41 @@ export default function RemitTable({remitos, setListaRemitos}) {
                                 {remito.mrd}
                             </TableCell>
                             <TableCell>
-                                <Link
-                                component="button"
-                                onClick={e => handleClickPopover(e)}>
+                                <Button
+                                    aria-describedby={id}
+                                    id={id}
+                                    component="button"
+                                    onClick={e => handleClickPopover(e, remito.accesorios)}>
                                     {tieneAccesorios}
-                                </Link>
-                                {accesoriosPopover(remito.accesorios)}
+                                </Button>
+                                {/* <Popover 
+                                    id={id} 
+                                    open={open} 
+                                    anchorEl={anchorEl} 
+                                    onClose={() => setAnchorEl(false)}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'left',
+                                    }}>
+                                    <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
+                                    {remito.accesorios}
+                                    </Box>
+                                </Popover>  */}
                             </TableCell>
                             <TableCell>
                                 {/* {createdAt} */}
                             </TableCell>
                             <TableCell>
                                 {/* {recivedAt} */}
+                            </TableCell>
+                            <TableCell>
+                                {/* {compromisedAt} */}
+                            </TableCell>
+                            <TableCell>
+                                {remito.detalle}
+                            </TableCell>
+                            <TableCell>
+                                {remito.retira}
                             </TableCell>
                             <TableCell>
                                 <Button endIcon={<Edit color="action"/>} ></Button>
@@ -189,6 +230,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
                 <StyledTableCell>
                     {remitos.reduce((accum, item) => accum + item.mrd, 0)}
                 </StyledTableCell>
+                <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>

@@ -1,4 +1,4 @@
-import React from 'react'
+import PropTypes from 'prop-types';
 import styled from "@emotion/styled";
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
@@ -6,9 +6,11 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Popper, Link, ClickAwayListener } from "@mui/material";
 import { useState } from "react";
+import { ESTADOS } from '../../Utils/enums';
+import { editarRemitoDeLista } from '../../Utils/API';
 
 
-const TableOnProcess = ({remitos, setListaRemitos}) => {
+const TableOnProcess = ({remitos, setListaRemitos, isDone}) => {
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         // backgroundColor: "gainsboro",
@@ -54,6 +56,18 @@ const TableOnProcess = ({remitos, setListaRemitos}) => {
         </Popper>
     )
 
+    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+    const handleChageEvent = (remito) => {
+        const remitoEditado = {...remito, estado: ESTADOS.FINALIZADO}
+        // console.log("Estado Viejo", remitoEditado);
+        editarRemitoDeLista(remitoEditado)
+            .then(response => console.log(response))
+            .catch(e => console.error(e));
+        // Crea una lista con el estado actual, lo mapea en 'r', verifico si el id correpornde al id a modificar, lo edito, sino devuelvo el mismo remito del map
+        setListaRemitos(lista => lista.map(r => r.id === remito.id ? {...r, estado: ESTADOS.FINALIZADO} : r));
+    }
+
     return(
         <Card>
           <Box>
@@ -91,7 +105,7 @@ const TableOnProcess = ({remitos, setListaRemitos}) => {
                             hover
                             >
                             <TableCell padding="checkbox">
-                                <Checkbox />
+                                <Checkbox checked={isDone} onClick={() => handleChageEvent(remito)}/>
                             </TableCell>
                             <TableCell>
                                 {remito.agencia}
@@ -171,3 +185,8 @@ const TableOnProcess = ({remitos, setListaRemitos}) => {
 }
 
 export default TableOnProcess
+
+TableOnProcess.prototype = {
+    remitos: PropTypes.node, 
+    setListaRemitos: PropTypes.func
+}

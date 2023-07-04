@@ -1,7 +1,7 @@
 import React from 'react'
 import { Chip, Menu, MenuItem } from '@mui/material'
-import { ESTADOS } from '../../../../Utils/enums';
-import { editarRemitoDeLista } from '../../../../Utils/API';
+import { ESTADOS } from '../../../Utils/enums';
+import { editarRemitoDeLista } from '../../../Utils/API';
 
 const StateChangeButton = ({remito, setListaRemitos}) => {
 
@@ -15,9 +15,11 @@ const StateChangeButton = ({remito, setListaRemitos}) => {
     const cambiarEstado = (remito, estadoNuevo) =>{
         const remitoEditado = {...remito, estado: estadoNuevo}
         console.log("Estado Viejo", remitoEditado);
-        editarRemitoDeLista(1, remitoEditado)
+        editarRemitoDeLista(remitoEditado)
             .then(response => console.log(response))
             .catch(e => console.error(e));
+        // Crea una lista con el estado actual, lo mapea en 'r', verifico si el id correpornde al id a modificar, lo edito, sino devuelvo el mismo remito del map
+        setListaRemitos(lista => lista.map(r => r.id === remito.id ? {...r, estado: estadoNuevo} : r));
     }
     const handleChangeState = (id, estadoNuevo) => {
         cambiarEstado(id, estadoNuevo);

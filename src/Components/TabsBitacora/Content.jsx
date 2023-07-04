@@ -1,16 +1,17 @@
 // import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import TableOnProcess from '../react-table/TableOnProcess';
+import TableOnProcess from './TableOnProcess';
 import { useEffect, useState } from 'react';
-import { getListaRemitos } from '../../../Utils/API';
+import { getListaRemitos } from '../../Utils/API';
+import { ESTADOS } from '../../Utils/enums';
 
 
 // let listaDeAgencias = [];
 
 
 
-export default function Content() {
+export default function Content({filtro}) {
 
   const [listaRemitos, setListaRemitos] = useState([])
 
@@ -29,15 +30,13 @@ export default function Content() {
   return (
     <Paper sx={{ margin: 'auto', overflow: 'hidden' }}>
 
-      <Typography color="text.secondary" align="center">
         <TableOnProcess
-          remitos={listaRemitos}
+          remitos={listaRemitos.filter(remitos => remitos.estado === filtro)}
           getListaRemitos={getListaRemitos}
           setListaRemitos={setListaRemitos}
+          isDone={filtro !== ESTADOS.EN_PROCESO}
         >
-
         </TableOnProcess>
-      </Typography>
     </Paper>
   );
 }

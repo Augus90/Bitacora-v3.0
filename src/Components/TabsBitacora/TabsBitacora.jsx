@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import PropTypes from 'prop-types';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import AppBar from '@mui/material/AppBar';
 import Content from './Content';
 import Box from '@mui/material/Box';
+import { ESTADOS } from '../../Utils/enums';
 
 function TabPanel({children, value, index}){
     return <div hidden={value !== index} id={value}>
@@ -31,11 +33,19 @@ const TabsBitacora = () => {
 
         <TabPanel value={tab} index={0}>
             <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
-                <Content/>
+                <Content
+                filtro={ESTADOS.EN_PROCESO}
+                fecha={Date.now.toString()}
+                />
             </Box>
         </TabPanel>
         <TabPanel value={tab} index={1}>
-          Item Two
+            <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
+                <Content
+                filtro={ESTADOS.FINALIZADO}
+                fecha={Date.now.toString()}
+                />
+            </Box>
         </TabPanel>
         <TabPanel value={tab} index={2}>
           Item Three
@@ -46,3 +56,9 @@ const TabsBitacora = () => {
 }
 
 export default TabsBitacora
+
+TabPanel.propTypes = {
+    children: PropTypes.element, 
+    value: PropTypes.number, 
+    index: PropTypes.number
+};

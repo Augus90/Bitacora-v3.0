@@ -1,8 +1,8 @@
 // import { useState } from 'react'
 // import './App.css'
-import Content from './Components/tableTask/paperbase/Content'
-import Header from './Components/tableTask/paperbase/Header'
-import Paperbase from './Components/tableTask/paperbase/Paperbase'
+import Content from './Components/TabsBitacora/Content'
+import Header from './Components/Header'
+import Paperbase from './Components/Paperbase'
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 

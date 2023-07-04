@@ -7,14 +7,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Grid, Container, TextField, Divider, Button } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { agregarRemitoALista } from '../../../Utils/API';
-import { ESTADOS } from '../../../Utils/enums';
+import { agregarRemitoALista } from '../../Utils/API';
+import { ESTADOS } from '../../Utils/enums';
 
 const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
     
     const remitoVacio =
     {
-      id: 0,
+    //   id: 0,
       agencia: "",
       numero: 0,
       e4: 0,

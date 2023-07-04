@@ -6,12 +6,12 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Navigator from './Navigator';
-import Content from './Content';
+import Content from './TabsBitacora/Content';
 import Header from './Header';
 import { Route, Router, Routes } from 'react-router-dom';
-import TablePendientes from '../react-table/TablePendientes';
-import TableHistorico from '../react-table/TableHistorico';
-import TabsBitacora from './TabsBitacora';
+import TablePendientes from './TablePendiantes/TablePendientes';
+import TableHistorico from './TableHistorico/TableHistorico';
+import TabsBitacora from './TabsBitacora/TabsBitacora';
 
 function Copyright() {
   return (

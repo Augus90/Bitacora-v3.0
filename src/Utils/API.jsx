@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-
 const baseURL = "http://localhost:5265/api/"
 
 export const getAgencias = async () => {
@@ -36,10 +35,10 @@ export const borrarRemitoDeLista = async (idRemito) => {
         .catch(error => console.log("error", error))
     }
   
-export const editarRemitoDeLista = async (id, nuevoEditado) =>{
+export const editarRemitoDeLista = async (nuevoEditado) =>{
   console.log("remito editado",nuevoEditado);
   let respuesta = null;
-  await axios.put(`${baseURL}ListadoRemitos/`, nuevoEditado)
+  await axios.put(`${baseURL}ListadoRemitos`, nuevoEditado)
       .then((response) => respuesta = response.data)
       .catch(error => console.log(error))
   return respuesta;

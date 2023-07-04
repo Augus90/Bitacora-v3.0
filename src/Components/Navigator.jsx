@@ -13,18 +13,14 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import HistoryIcon from '@mui/icons-material/History';
 import TimerIcon from '@mui/icons-material/Timer';
 import SettingsIcon from '@mui/icons-material/Settings';
-import Content from './Content';
+import Content from './TabsBitacora/Content';
 import { Link } from 'react-router-dom';
 
 const categories = [
   {
     id: 'Build',
     children: [
-      {  
-        id: 'Bitacora',
-        icon: <LocalShippingIcon />,
-        link: '/'
-      },
+      { id: 'Bitacora', icon: <LocalShippingIcon />, link: '/' },
       { id: 'Pendientes', icon: <InventoryIcon />, link: '/Pendientes'},
       { id: 'Historico', icon: <HistoryIcon /> , link: '/Historico'},
     ],
