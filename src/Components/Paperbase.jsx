@@ -6,18 +6,18 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Navigator from './Navigator';
-import Content from './TabsBitacora/Content';
 import Header from './Header';
-import { Route, Router, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import TablePendientes from './TablePendiantes/TablePendientes';
 import TableHistorico from './TableHistorico/TableHistorico';
 import TabsBitacora from './TabsBitacora/TabsBitacora';
+import CollapsibleTable from './tableTask/TableMenu';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="https://surely-sa.com.ar/index">
         Augusto
       </Link>{' '}
       {new Date().getFullYear()}.
@@ -206,6 +206,7 @@ export default function Paperbase() {
               <Route path='/' Component={TabsBitacora}/>
               <Route path='/Pendientes' Component={TablePendientes}/>
               <Route path='/Historico' Component={TableHistorico}/>
+              <Route path='/Test' Component={CollapsibleTable}/>
             </Routes>
           </Box>
           <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>

@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import styled from "@emotion/styled";
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Popper, Link, ClickAwayListener } from "@mui/material";
 import { useState } from "react";
@@ -11,6 +12,8 @@ import { editarRemitoDeLista } from '../../Utils/API';
 
 
 const TableOnProcess = ({remitos, setListaRemitos, isDone}) => {
+
+  const [open, setOpen] = useState(false);
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         // backgroundColor: "gainsboro",
@@ -143,7 +146,13 @@ const TableOnProcess = ({remitos, setListaRemitos, isDone}) => {
                                 {accesoriosPopover(remito.accesorios)}
                             </TableCell>
                             <TableCell>
-                                <ExpandMoreIcon />
+                            <IconButton
+                                aria-label="expand row"
+                                size="small"
+                                onClick={() => setOpen(!open)}
+                            >
+                                {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                            </IconButton>
                             </TableCell>          
                         </StyledTableRow>
                     )
