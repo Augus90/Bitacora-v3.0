@@ -1,7 +1,7 @@
 import React from 'react'
 import { Chip, Menu, MenuItem } from '@mui/material'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { ESTADOS } from '../../../Utils/enums';
+import { ESTADOS } from '../../../Utils/Enums';
 import { editarRemitoDeLista } from '../../../Utils/API';
 
 const StateChangeButton = ({remito, setListaRemitos}) => {
@@ -33,7 +33,7 @@ const StateChangeButton = ({remito, setListaRemitos}) => {
             label={remito.estado}
             variant="outlined" 
             color="primary" 
-            size='small'
+            size='medium'
             icon={<ArrowDropDownIcon/>}
             onClick={handleClick} />
         <Menu

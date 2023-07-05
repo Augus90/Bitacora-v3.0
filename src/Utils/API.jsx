@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// const baseURL = "http://10.173.5.33:5265/api/"
-const baseURL = "http://localhost:5265/api/"
+const baseURL = "http://10.173.5.33:5265/api/"
+// const baseURL = "http://localhost:5265/api/"
 
 export const getAgencias = async () => {
     let respuesta = null;

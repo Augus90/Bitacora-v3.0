@@ -7,7 +7,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Popper, Link, ClickAwayListener } from "@mui/material";
 import { useState } from "react";
-import { ESTADOS } from '../../Utils/enums';
+import { ESTADOS } from '../../Utils/Enums';
 import { editarRemitoDeLista } from '../../Utils/API';
 import CollapseRow from './CollapseRow';
 

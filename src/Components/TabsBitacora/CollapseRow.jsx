@@ -5,7 +5,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Box, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Collapse, Typography, Link, Popper, ClickAwayListener } from "@mui/material";
 import { useState } from "react";
-import { ESTADOS } from '../../Utils/enums';
+import { ESTADOS } from '../../Utils/Enums';
 import { editarRemitoDeLista } from '../../Utils/API';
 import { format } from 'date-fns';
 

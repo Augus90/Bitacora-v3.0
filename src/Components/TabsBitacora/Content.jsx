@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 import TableOnProcess from './TableOnProcess';
 import { useEffect, useState } from 'react';
 import { getListaRemitos } from '../../Utils/API';
-import { ESTADOS } from '../../Utils/enums';
+import { ESTADOS } from '../../Utils/Enums';
 
 
 // let listaDeAgencias = [];

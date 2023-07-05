@@ -5,10 +5,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Autocomplete from '@mui/material/Autocomplete';
-import { Grid, Container, TextField, Divider, Button } from '@mui/material';
+import { Grid, Container, TextField, Divider, Button, Select } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { agregarRemitoALista } from '../../Utils/API';
-import { ESTADOS } from '../../Utils/enums';
+import { DETALLES, ESTADOS } from '../../Utils/Enums';
 import { format } from 'date-fns';
 
 
@@ -31,7 +31,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
       recivedAt: format(Date.UTC(0,0,0), 'dd/MM/yyyy'),
       compromisedAt: format(Date.UTC(0,0,0), 'dd/MM/yyyy'),
       estado: ESTADOS.CREADO,
-      detalle: "",
+      detalle: DETALLES.SERVICIO_TECNICO,
       retira: "",
     }
     
@@ -60,10 +60,10 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
 
   return (
     <Dialog
-    open={open}
-    onClose={() => setOpen(false)}
-    aria-labelledby="alert-dialog-title"
-    aria-describedby="alert-dialog-description"
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
     >
     <form onSubmit={onSubmitRemit}>
     <DialogTitle id="alert-dialog-title" >
@@ -182,16 +182,25 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
                 <DatePicker label="Compromiso" name="compromisedAt" onChange={(valor) => setNuevoRemito(() => ({...nuevoRemito, compromisedAt: format(valor.$d, 'dd/MM/yyyy')}))}/>
             </Grid>
             <Grid item>
-                <TextField 
-                id="outlined-text" 
-                label="Detalle" 
-                type="text" 
-                defaultValue=""
-                sx={{width: 200}}
-                value={nuevoRemito.detalle}
-                name='detalle'
-                onChange={e => setNuevoRemito({...nuevoRemito, detalle: e.target.value})}
-                />
+                {/* <TextField 
+                    id="outlined-text" 
+                    label="Detalle" 
+                    type="text" 
+                    defaultValue=""
+                    sx={{width: 200}}
+                    value={nuevoRemito.detalle}
+                    name='detalle'
+                    onChange={e => setNuevoRemito({...nuevoRemito, detalle: e.target.value})}
+                /> */}
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={remitoVacio.detalle}
+                    label="Age"
+                    onChange={e => setNuevoRemito({...nuevoRemito, detalle: e.target.value})}
+                >
+                    {/* {DETALLES} */}
+                </Select>
             </Grid>
             <Grid item>
                 <TextField 
