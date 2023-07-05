@@ -11,7 +11,7 @@ import { Route, Routes } from 'react-router-dom';
 import TablePendientes from './TablePendiantes/TablePendientes';
 import TableHistorico from './TableHistorico/TableHistorico';
 import TabsBitacora from './TabsBitacora/TabsBitacora';
-import CollapsibleTable from './tableTask/TableMenu';
+import Test from './tableTask/Test';
 
 function Copyright() {
   return (
@@ -206,7 +206,7 @@ export default function Paperbase() {
               <Route path='/' Component={TabsBitacora}/>
               <Route path='/Pendientes' Component={TablePendientes}/>
               <Route path='/Historico' Component={TableHistorico}/>
-              <Route path='/Test' Component={CollapsibleTable}/>
+              <Route path='/Test' Component={Test}/>
             </Routes>
           </Box>
           <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>

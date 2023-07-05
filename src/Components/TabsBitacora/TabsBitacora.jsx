@@ -1,10 +1,7 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
-import AppBar from '@mui/material/AppBar';
 import Content from './Content';
-import Box from '@mui/material/Box';
+import {Box, Tab, Tabs, AppBar, Typography} from '@mui/material';
 import { ESTADOS } from '../../Utils/enums';
 
 function TabPanel({children, value, index}){
@@ -48,7 +45,7 @@ const TabsBitacora = () => {
             </Box>
         </TabPanel>
         <TabPanel value={tab} index={2}>
-          Item Three
+          <Typography>Mañana</Typography>
         </TabPanel>
       </AppBar>
     </div>

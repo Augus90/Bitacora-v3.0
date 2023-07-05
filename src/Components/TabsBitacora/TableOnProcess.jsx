@@ -9,6 +9,7 @@ import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, 
 import { useState } from "react";
 import { ESTADOS } from '../../Utils/enums';
 import { editarRemitoDeLista } from '../../Utils/API';
+import CollapseRow from './CollapseRow';
 
 
 const TableOnProcess = ({remitos, setListaRemitos, isDone}) => {
@@ -40,36 +41,11 @@ const TableOnProcess = ({remitos, setListaRemitos, isDone}) => {
             "Accesorios",
         ]
 
-    const [anchorEl, setAnchorEl] = useState(null);
-
-    const handleClickPopover = (event) => {
-    //   setAnchorEl(anchorEl ? null : event.currentTarget);
-    };
   
-    const openPopover = Boolean(anchorEl);
-    const id = openPopover ? 'simple-popper' : undefined;
-  
-    const accesoriosPopover = (accesorios) => (
-        <Popper id={id} open={openPopover} anchorEl={anchorEl}>
-            <ClickAwayListener onClickAway={() => setAnchorEl(false)}>
-                <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
-                {accesorios}
-                </Box>
-            </ClickAwayListener>
-        </Popper>
-    )
 
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-    const handleChageEvent = (remito) => {
-        const remitoEditado = {...remito, estado: ESTADOS.FINALIZADO}
-        // console.log("Estado Viejo", remitoEditado);
-        editarRemitoDeLista(remitoEditado)
-            .then(response => console.log(response))
-            .catch(e => console.error(e));
-        // Crea una lista con el estado actual, lo mapea en 'r', verifico si el id correpornde al id a modificar, lo edito, sino devuelvo el mismo remito del map
-        setListaRemitos(lista => lista.map(r => r.id === remito.id ? {...r, estado: ESTADOS.FINALIZADO} : r));
-    }
+
 
     return(
         <Card>
@@ -97,65 +73,12 @@ const TableOnProcess = ({remitos, setListaRemitos, isDone}) => {
               </TableHead>
               <TableBody>
                 {remitos.map((remito) =>{
-                    // const createdAt = remito.createdAt === Date.UTC(0,0,0) ? "" : format(remito.createdAt, 'dd/MM/yyyy') ;
-                    // const recivedAt = remito.recivedAt === Date.UTC(0,0,0) ? "" : format(remito.recivedAt, 'dd/MM/yyyy') ;
-                    const tieneAccesorios = remito.accesorios.length > 0 ? "ACC" : "";
-
-                    return(
-                        <StyledTableRow 
-                            justifyContent="center"
-                            key={remito.id}
-                            hover
-                            >
-                            <TableCell padding="checkbox">
-                                <Checkbox checked={isDone} onClick={() => handleChageEvent(remito)}/>
-                            </TableCell>
-                            <TableCell>
-                                {remito.agencia}
-                            </TableCell>
-                            <TableCell>
-                                {remito.numero}
-                            </TableCell>
-                            <TableCell>
-                                {remito.e4}
-                            </TableCell>
-                            <TableCell>
-                                {remito.e4T}
-                            </TableCell>
-                            <TableCell>
-                                {remito.gps}
-                            </TableCell>
-                            <TableCell>
-                                {remito.tx860}
-                            </TableCell>
-                            <TableCell>
-                                {remito.tx700}
-                            </TableCell>
-                            <TableCell>
-                                {remito.tx840}
-                            </TableCell>
-                            <TableCell>
-                                {remito.mrd}
-                            </TableCell>
-                            <TableCell>
-                                <Link
-                                component="button"
-                                onClick={e => handleClickPopover(e)}>
-                                    {tieneAccesorios}
-                                </Link>
-                                {accesoriosPopover(remito.accesorios)}
-                            </TableCell>
-                            <TableCell>
-                            <IconButton
-                                aria-label="expand row"
-                                size="small"
-                                onClick={() => setOpen(!open)}
-                            >
-                                {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                            </IconButton>
-                            </TableCell>          
-                        </StyledTableRow>
-                    )
+                    return <CollapseRow
+                        key={remito.id}
+                        remito={remito}
+                        setListaRemitos={setListaRemitos}
+                        isDone={isDone}
+                    />
                 })}
               </TableBody>
               <TableRow>

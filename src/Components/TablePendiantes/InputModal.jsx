@@ -9,6 +9,8 @@ import { Grid, Container, TextField, Divider, Button } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { agregarRemitoALista } from '../../Utils/API';
 import { ESTADOS } from '../../Utils/enums';
+import { format } from 'date-fns';
+
 
 const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
     
@@ -25,9 +27,9 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
       tx840: 0,
       mrd: 0,
       accesorios: "",
-      createdAt: Date.UTC(0,0,0),
-      recivedAt: Date.UTC(0,0,0),
-      compromisedAt: Date.UTC(0,0,0),
+      createdAt: format(Date.UTC(0,0,0), 'dd/MM/yyyy'),
+      recivedAt: format(Date.UTC(0,0,0), 'dd/MM/yyyy'),
+      compromisedAt: format(Date.UTC(0,0,0), 'dd/MM/yyyy'),
       estado: ESTADOS.CREADO,
       detalle: "",
       retira: "",
@@ -46,6 +48,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
     const addRemito = () => {
         setListaRemitos((listaActual) => ([...listaActual, nuevoRemito]))
         agregarRemitoALista(nuevoRemito)
+        console.log("Nuevo Remito", nuevoRemito);
         setNuevoRemito(remitoVacio)
         setOpen(false)
       }    
@@ -70,7 +73,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
         <DialogContentText id="alert-dialog-description" sx={{padding: 3}}>
         <Grid container spacing={2}>
         <Container id="alert-dialog-container" >
-            <Grid container>
+            <Grid container >
             <Grid item xs={5}>
                 <Autocomplete
                     disablePortal
@@ -170,12 +173,39 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             />
         </Grid>
             <Grid item sx={{width: 200}}>
-                <DatePicker label="Creado" name="createdAt" onChange={(valor) => setNuevoRemito(() => ({...nuevoRemito, createdAt: valor.$d}))}/>
+                <DatePicker label="Creado" name="createdAt" onChange={(valor) => setNuevoRemito(() => ({...nuevoRemito, createdAt: format(valor.$d, 'dd/MM/yyyy')}))}/>
             </Grid>
             <Grid item sx={{width: 200}}>
-                <DatePicker label="Recibido" name="recivedAt" onChange={(valor) => setNuevoRemito(() => ({...nuevoRemito, recivedAt: valor.$d}))}/>
+                <DatePicker label="Recibido" name="recivedAt" onChange={(valor) => setNuevoRemito(() => ({...nuevoRemito, recivedAt: format(valor.$d, 'dd/MM/yyyy')}))}/>
             </Grid>
-            <Grid item sx={{width: 300}}>
+            <Grid item sx={{width: 200}}>
+                <DatePicker label="Compromiso" name="compromisedAt" onChange={(valor) => setNuevoRemito(() => ({...nuevoRemito, compromisedAt: format(valor.$d, 'dd/MM/yyyy')}))}/>
+            </Grid>
+            <Grid item>
+                <TextField 
+                id="outlined-text" 
+                label="Detalle" 
+                type="text" 
+                defaultValue=""
+                sx={{width: 200}}
+                value={nuevoRemito.detalle}
+                name='detalle'
+                onChange={e => setNuevoRemito({...nuevoRemito, detalle: e.target.value})}
+                />
+            </Grid>
+            <Grid item>
+                <TextField 
+                id="outlined-text" 
+                label="Retira" 
+                type="text" 
+                defaultValue=""
+                sx={{width: 200}}
+                value={nuevoRemito.retira}
+                name='retira'
+                onChange={e => setNuevoRemito({...nuevoRemito, retira: e.target.value})}
+                />
+            </Grid>
+            <Grid item sx={{width: 300}} >
                 <TextField
                 id="outlined-multiline-static"
                 label="Accesorios"
