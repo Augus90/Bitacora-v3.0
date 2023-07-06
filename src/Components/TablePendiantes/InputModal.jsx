@@ -7,35 +7,30 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Grid, Container, TextField, Divider, Button, Select } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { agregarRemitoALista } from '../../Utils/API';
-import { DETALLES, ESTADOS } from '../../Utils/Enums';
+import { agregarRemitoALista, getAgencias } from '../../Utils/API';
+import { remitoVacio } from './RemitoVacio';
 import { format } from 'date-fns';
+import { useEffect } from 'react';
 
 
-const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
+const InputModal = ({ ramitoActual = remitoVacio , setListaRemitos, open, setOpen, modificarRemitoGlobal}) => {
     
-    const remitoVacio =
-    {
-    //   id: 0,
-      agencia: "",
-      numero: 0,
-      e4: 0,
-      e4T: 0,
-      gps: 0,
-      tx860: 0,
-      tx700: 0,
-      tx840: 0,
-      mrd: 0,
-      accesorios: "",
-      createdAt: format(Date.UTC(0,0,0), 'dd/MM/yyyy'),
-      recivedAt: format(Date.UTC(0,0,0), 'dd/MM/yyyy'),
-      compromisedAt: format(Date.UTC(0,0,0), 'dd/MM/yyyy'),
-      estado: ESTADOS.CREADO,
-      detalle: DETALLES.SERVICIO_TECNICO,
-      retira: "",
-    }
-    
-    const [nuevoRemito, setNuevoRemito] = useState(remitoVacio)
+
+    const [nuevoRemito, setNuevoRemito] = useState(ramitoActual);
+    let listaDeAgencias = [];
+
+    function llenarAgencias(jsonDeAgencias){
+        listaDeAgencias = jsonDeAgencias.map( agencia => ({
+          value: agencia.nombre,
+          label: agencia.nombre,
+        }))
+      }
+
+    useEffect( () => {
+      getAgencias()
+        .then(agencias => llenarAgencias(agencias))
+        .catch(e => console.error(e))
+    }, [])
 
 
     const AgregarEquipoAlRemito = (evento) => {
@@ -45,17 +40,10 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
         }))
     }
 
-    const addRemito = () => {
-        setListaRemitos((listaActual) => ([...listaActual, nuevoRemito]))
-        agregarRemitoALista(nuevoRemito)
-        console.log("Nuevo Remito", nuevoRemito);
-        setNuevoRemito(remitoVacio)
-        setOpen(false)
-      }    
 
     function onSubmitRemit(e){
         e.preventDefault()
-        addRemito()
+        modificarRemitoGlobal(nuevoRemito, setNuevoRemito)
     }
 
   return (
@@ -79,6 +67,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
                     disablePortal
                     id="outlined-select-currency"
                     options={listaDeAgencias}
+                    value={nuevoRemito.agencia}
                     required
                     inputValue={nuevoRemito.agencia}
                     onInputChange={(event, newValue) => setNuevoRemito({...nuevoRemito, agencia: newValue})}
@@ -195,7 +184,7 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={remitoVacio.detalle}
+                    value={ramitoActual.detalle}
                     label="Age"
                     onChange={e => setNuevoRemito({...nuevoRemito, detalle: e.target.value})}
                 >
@@ -216,14 +205,15 @@ const InputModal = ({ setListaRemitos, listaDeAgencias, open, setOpen}) => {
             </Grid>
             <Grid item sx={{width: 300}} >
                 <TextField
-                id="outlined-multiline-static"
-                label="Accesorios"
-                multiline
-                rows={3}
-                fullWidth 
-                placeholder='Accesorios...'
-                defaultValue=""
-                onChange={e => setNuevoRemito({...nuevoRemito, accesorios: e.target.value})}
+                    id="outlined-multiline-static"
+                    label="Accesorios"
+                    multiline
+                    rows={3}
+                    fullWidth 
+                    value={nuevoRemito.accesorios}
+                    placeholder='Accesorios...'
+                    defaultValue=""
+                    onChange={e => setNuevoRemito({...nuevoRemito, accesorios: e.target.value})}
                 />
             </Grid> 
         </Grid>

@@ -2,9 +2,11 @@ import styled from "@emotion/styled";
 import { Delete, Edit } from "@mui/icons-material";
 import {  TableCell, TableHead, TableRow, Button, Popper, Popover, Typography, ClickAwayListener, Card, CardContent } from "@mui/material";
 import { useState } from "react";
-import { borrarRemitoDeLista, getListaRemitos} from '../../../Utils/API'
+import { borrarRemitoDeLista, editarRemitoDeLista, getListaRemitos} from '../../../Utils/API'
 import StateChangeButton from "./StateChangeButton";
 import format from "date-fns/format";
+import InputModal from "../InputModal";
+import { remitoVacio } from "../RemitoVacio";
 
 const SingleRow = ({remito, deleteRemit, setListaRemitos}) => {
 
@@ -21,7 +23,7 @@ const SingleRow = ({remito, deleteRemit, setListaRemitos}) => {
         }));
 
 
-    const [openId, setOpenId] = useState(0);
+    const [openModal, setOpenModal] = useState(0);
     const [anchorEl, setAnchorEl] = useState(null);
 
     
@@ -40,7 +42,17 @@ const SingleRow = ({remito, deleteRemit, setListaRemitos}) => {
                 return <Typography fontSize={15}> {fecha}</Typography>
             }
     }
-    
+
+
+    const modificarRemitoGlobal = (nuevoRemito, setNuevoRemito) => {
+        setListaRemitos((listaActual) => listaActual.filter(remito => remito.id !== nuevoRemito.id))
+        setListaRemitos((listaActual) => ([...listaActual, nuevoRemito]))
+        editarRemitoDeLista(nuevoRemito)
+        console.log("Remito Editado", nuevoRemito);
+        setNuevoRemito(remitoVacio)
+        setOpenModal(false)
+      }    
+
     const tieneAccesorios = remito.accesorios.length > 0 ? "ACC" : "";
 
     return(
@@ -116,10 +128,16 @@ const SingleRow = ({remito, deleteRemit, setListaRemitos}) => {
                 {remito.retira}
             </TableCell>
             <TableCell>
-                <Button endIcon={<Edit color="action"/>} ></Button>
+                <Button endIcon={<Edit color="action"/>} onClick={() => setOpenModal(true)} ></Button>
                 <Button endIcon={<Delete color="action"/>} onClick={()=>deleteRemit(remito.id)}></Button>
             </TableCell>
-            
+            <InputModal
+                setListaRemitos={setListaRemitos}
+                open={openModal}
+                setOpen={setOpenModal}
+                ramitoActual={remito}
+                modificarRemitoGlobal={modificarRemitoGlobal}
+            />
         </StyledTableRow>
     )
 

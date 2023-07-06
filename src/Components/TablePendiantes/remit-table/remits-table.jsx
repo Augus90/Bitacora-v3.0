@@ -61,7 +61,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
     const deleteRemit = async (idRemito) => {
         await borrarRemitoDeLista(idRemito)
         setListaRemitos(remitosActual => (
-            remitosActual.filter( remitoAFiltrar => remitoAFiltrar.id !== id)
+            remitosActual.filter( remitoAFiltrar => remitoAFiltrar.id !== idRemito)
         ))
         getListaRemitos()
             .then(lista => setListaRemitos(lista))

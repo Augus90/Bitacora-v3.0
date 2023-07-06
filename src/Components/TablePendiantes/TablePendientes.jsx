@@ -14,10 +14,11 @@ import RemitTable from './remit-table/remits-table';
 import { useEffect, useState } from 'react';
 import { Add } from '@mui/icons-material';
 import InputModal from './InputModal';
-import { getAgencias, getListaRemitos } from '../../Utils/API';
+import { agregarRemitoALista, getAgencias, getListaRemitos } from '../../Utils/API';
+import { remitoVacio } from './RemitoVacio';
 
 
-let listaDeAgencias = [];
+// let listaDeAgencias = [];
 
 
 const TablePendientes = () => {
@@ -27,26 +28,34 @@ const TablePendientes = () => {
 
 
     useEffect( () => {
-      getAgencias()
-        .then(agencias => llenarAgencias(agencias))
-        .catch(e => console.error(e))
+      // getAgencias()
+      //   .then(agencias => llenarAgencias(agencias))
+      //   .catch(e => console.error(e))
       getListaRemitos()
         .then(lista => llenarListaRemitos(lista))
         .catch(e => console.error(e))
     },[])
 
 
-    function llenarAgencias(jsonDeAgencias){
-      listaDeAgencias = jsonDeAgencias.map( agencia => ({
-        value: agencia.nombre,
-        label: agencia.nombre,
-      }))
-    }
+    // function llenarAgencias(jsonDeAgencias){
+    //   listaDeAgencias = jsonDeAgencias.map( agencia => ({
+    //     value: agencia.nombre,
+    //     label: agencia.nombre,
+    //   }))
+    // }
 
     function llenarListaRemitos(listaDeRemitos){
         console.log("Lista de Remitos",listaDeRemitos);
         setListaRemitos(listaDeRemitos);
     }
+
+    const modificarRemitoGlobal = (nuevoRemito, setNuevoRemito) => {
+      setListaRemitos((listaActual) => ([...listaActual, nuevoRemito]))
+      agregarRemitoALista(nuevoRemito)
+      console.log("Nuevo Remito", nuevoRemito);
+      setNuevoRemito(remitoVacio)
+      setOpen(false)
+    }    
 
   return (
     <div>
@@ -87,9 +96,10 @@ const TablePendientes = () => {
                   <InputModal
                     setListaRemitos={setListaRemitos}
                     listaRemitos={listaRemitos}
-                    listaDeAgencias={listaDeAgencias}
                     open={open}
-                    setOpen={setOpen}/>
+                    setOpen={setOpen}
+                    modificarRemitoGlobal={modificarRemitoGlobal}
+                    />
                   
                   <Tooltip title="Reload">
                     <IconButton>
