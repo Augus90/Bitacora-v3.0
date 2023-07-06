@@ -5,12 +5,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Autocomplete from '@mui/material/Autocomplete';
-import { Grid, Container, TextField, Divider, Button, Select } from '@mui/material';
+import { Grid, Container, TextField, Divider, Button, Select, MenuItem, InputLabel } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { agregarRemitoALista, getAgencias } from '../../Utils/API';
 import { remitoVacio } from './RemitoVacio';
 import { format } from 'date-fns';
 import { useEffect } from 'react';
+import { DETALLES } from '../../Utils/Enums';
 
 
 const InputModal = ({ ramitoActual = remitoVacio , setListaRemitos, open, setOpen, modificarRemitoGlobal}) => {
@@ -45,6 +46,8 @@ const InputModal = ({ ramitoActual = remitoVacio , setListaRemitos, open, setOpe
         e.preventDefault()
         modificarRemitoGlobal(nuevoRemito, setNuevoRemito)
     }
+
+    const detalles = Object.keys(DETALLES).map(detalle => DETALLES[detalle])
 
   return (
     <Dialog
@@ -184,11 +187,15 @@ const InputModal = ({ ramitoActual = remitoVacio , setListaRemitos, open, setOpe
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={ramitoActual.detalle}
-                    label="Age"
+                    value={nuevoRemito.detalle}
+                    displayEmpty
+                    inputProps={{ 'aria-label': 'Without label' }}
                     onChange={e => setNuevoRemito({...nuevoRemito, detalle: e.target.value})}
                 >
-                    {/* {DETALLES} */}
+                    {detalles.map((detalle, index) => (
+                        <MenuItem value={detalle} key={index}>{detalle}</MenuItem>
+                    ))}
+
                 </Select>
             </Grid>
             <Grid item>
