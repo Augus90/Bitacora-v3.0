@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Content from './Content';
 import {Box, Tab, Tabs, AppBar, Typography} from '@mui/material';
 import { ESTADOS } from '../../Utils/Enums';
+import format from 'date-fns/format';
 
 function TabPanel({children, value, index}){
     return <div hidden={value !== index} id={value}>

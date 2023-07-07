@@ -115,7 +115,6 @@ const TablePendientes = () => {
               remitos={listaRemitos}
               setListaRemitos={setListaRemitos}
             >
-
             </RemitTable>
           {/* </Typography> */}
         </Paper>

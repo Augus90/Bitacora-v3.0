@@ -31,7 +31,7 @@ const PaginacionRegistros = () => {
       <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
         <Box alignContent={'center'} marginBottom={2} sx={{flex: 1, justifyContent:'flex-end'}}>
           <Stack justifyContent={'center'} spacing={2}>
-            <Pagination count={maxPage} page={page} onChange={handleChange}/>
+            <Pagination count={maxPage} page={page} color="primary" onChange={handleChange}/>
           </Stack>
         </Box>
         <Paper sx={{ margin: 'auto', overflow: 'hidden' }}>

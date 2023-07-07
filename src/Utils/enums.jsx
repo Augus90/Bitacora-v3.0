@@ -1,8 +1,8 @@
 const ESTADOS = {
-    CREADO: "Creado",
-    EN_PROCESO: "En Proceso",
-    FINALIZADO: "Finalizado",
-    A_DETERMINAR: "A Determinar",
+    CREADO: "CREADO",
+    EN_PROCESO: "EN PROCESO",
+    FINALIZADO: "FINALIZADO",
+    A_DETERMINAR: "A DETERMINAR",
   }
 
 const DETALLES = {
