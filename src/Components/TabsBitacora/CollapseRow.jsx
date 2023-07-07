@@ -109,6 +109,9 @@ const CollapseRow = ({remito, setListaRemitos, isDone}) => {
                     </Popper>
                 </TableCell>
                 <TableCell>
+                    <Typography>{remito.retira}</Typography>
+                </TableCell>
+                <TableCell>
                 <IconButton
                     aria-label="expand row"
                     size="small"

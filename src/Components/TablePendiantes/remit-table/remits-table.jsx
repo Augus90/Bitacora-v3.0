@@ -86,21 +86,13 @@ export default function RemitTable({remitos, setListaRemitos}) {
             <Table>
               <TableHead>
                 <TableRow>
-                    {/* <StyledTableCell padding="checkbox"> */}
-                        {/* TODO: Select all */}
-                        {/* <Checkbox/> */}
-                    {/* </StyledTableCell> */}
+
                     {cabeceraDeTabla.map( (cabecera, index) => (
                         <StyledTableCell key={index}>
                            <Typography variant="caption">{cabecera}</Typography> 
                         </StyledTableCell>
                     ))}
                     <StyledTableCell align="right" width={180}>
-                        <Tooltip title="Reload">
-                            <IconButton>
-                            <RefreshIcon color="inherit" sx={{ display: 'block' }} />
-                            </IconButton>
-                        </Tooltip>
                     </StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -139,6 +131,8 @@ export default function RemitTable({remitos, setListaRemitos}) {
                 <StyledTableCell>
                     {remitos.reduce((accum, item) => accum + item.mrd, 0)}
                 </StyledTableCell>
+                <StyledTableCell></StyledTableCell>
+                <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>

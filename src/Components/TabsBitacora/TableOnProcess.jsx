@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Popper, Link, ClickAwayListener } from "@mui/material";
+import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Popper, Link, ClickAwayListener, Typography } from "@mui/material";
 import { useState } from "react";
 import { ESTADOS } from '../../Utils/Enums';
 import { editarRemitoDeLista } from '../../Utils/API';
@@ -14,7 +14,6 @@ import CollapseRow from './CollapseRow';
 
 const TableOnProcess = ({remitos, setListaRemitos, isDone}) => {
 
-  const [open, setOpen] = useState(false);
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         // backgroundColor: "gainsboro",
@@ -22,12 +21,6 @@ const TableOnProcess = ({remitos, setListaRemitos, isDone}) => {
         // color: theme.palette.common.white,
     }));
     
-    const StyledTableRow = styled(TableRow)(() => ({
-        '&:nth-of-type(odd)': {
-        backgroundColor: "aliceblue",
-        },
-    }));   
-
     const cabeceraDeTabla = [
             "Agencia",
             "Numero",
@@ -39,13 +32,8 @@ const TableOnProcess = ({remitos, setListaRemitos, isDone}) => {
             "TX840",
             "MRD",
             "Accesorios",
+            "Retira",
         ]
-
-  
-
-    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
-
 
     return(
         <Card>
@@ -82,9 +70,7 @@ const TableOnProcess = ({remitos, setListaRemitos, isDone}) => {
                 })}
               </TableBody>
               <TableRow>
-                <StyledTableCell></StyledTableCell>
-                <StyledTableCell>Total</StyledTableCell>
-                <StyledTableCell></StyledTableCell>
+                <StyledTableCell colSpan={3}><Typography variant='h6'>Total</Typography></StyledTableCell>
                 <StyledTableCell>   
                     {remitos.reduce((accum, item) => accum + item.e4, 0)}
                 </StyledTableCell>
@@ -106,6 +92,7 @@ const TableOnProcess = ({remitos, setListaRemitos, isDone}) => {
                 <StyledTableCell>
                     {remitos.reduce((accum, item) => accum + item.mrd, 0)}
                 </StyledTableCell>
+                <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>
                 

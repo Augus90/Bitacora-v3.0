@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Delete, Edit } from "@mui/icons-material";
-import {  TableCell, TableHead, TableRow, Button, Popper, Popover, Typography, ClickAwayListener, Card, CardContent } from "@mui/material";
+import {  TableCell, TableHead, TableRow, Button, Box, Popper, Popover, Typography, ClickAwayListener, Card, CardContent } from "@mui/material";
 import { useState } from "react";
 import { borrarRemitoDeLista, editarRemitoDeLista, getListaRemitos} from '../../../Utils/API'
 import StateChangeButton from "./StateChangeButton";
@@ -9,12 +9,6 @@ import InputModal from "../InputModal";
 import { remitoVacio } from "../RemitoVacio";
 
 const SingleRow = ({remito, deleteRemit, setListaRemitos}) => {
-
-    const StyledTableCell = styled(TableCell)(({ theme }) => ({
-        // backgroundColor: "gainsboro",
-        backgroundColor: "whitesmoke",
-        // color: theme.palette.common.white,
-        }));
 
     const StyledTableRow = styled(TableRow)(() => ({
         '&:nth-of-type(odd)': {
@@ -25,16 +19,19 @@ const SingleRow = ({remito, deleteRemit, setListaRemitos}) => {
 
     const [openModal, setOpenModal] = useState(0);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [openPopover, setOpenPopover] = useState(false);
 
     
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popper' : undefined;
 
-    const handleClickPopover = (event, accesorio) => {
-    //   setAnchorEl(event.currentTarget);
-        console.log(event);
-        // accesoriosPopover(accesorio, )
+    const handleClickPopover = (event) => {
+      setAnchorEl( event.target );
+      console.log(event.target);
+        setOpenPopover(!openPopover);
     };
+
+    const getBoundingClient = (event) => (event.currentTarget.getBoundingClientRect())
 
     // const createdAt = remito.createdAt === Date.UTC(0,0,0) ? "" : format(remito.createdAt, 'dd/MM/yyyy') ;
     const fechaEsValida = (fecha) => {
@@ -95,22 +92,23 @@ const SingleRow = ({remito, deleteRemit, setListaRemitos}) => {
                     aria-describedby={id}
                     id={id}
                     component="button"
-                    onClick={e => handleClickPopover(e, remito.accesorios)}>
+                    onClick={(e) => handleClickPopover(e)}>
                     {tieneAccesorios}
                 </Button>
-                {/* <Popover 
+                <Popover 
                     id={id} 
-                    open={open} 
+                    open={openPopover} 
                     anchorEl={anchorEl} 
-                    onClose={() => setAnchorEl(false)}
+                    onClose={() => setOpenPopover(!openPopover)}
                     anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    }}>
+                        vertical: 'center',
+                        horizontal: 'center',
+                    }}
+                >
                     <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
-                    {remito.accesorios}
+                        {remito.accesorios}
                     </Box>
-                </Popover>  */}
+                </Popover> 
             </TableCell>
             <TableCell>
                 {fechaEsValida(remito.createdAt)}
