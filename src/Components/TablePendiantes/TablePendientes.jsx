@@ -110,14 +110,14 @@ const TablePendientes = () => {
               </Grid>
             </Toolbar>
           </AppBar>
-          <Typography color="text.secondary" align="center">
+          {/* <Typography color="text.secondary" align="center"> */}
             <RemitTable
               remitos={listaRemitos}
               setListaRemitos={setListaRemitos}
             >
 
             </RemitTable>
-          </Typography>
+          {/* </Typography> */}
         </Paper>
       </Box>
     </div>

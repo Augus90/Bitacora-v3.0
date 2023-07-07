@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Button, Popper, Popover, Typography, ClickAwayListener } from "@mui/material";
 import { useState } from "react";
+import { StyledTableCell } from '../../../Utils/Styles';
 import { borrarRemitoDeLista, getListaRemitos} from '../../../Utils/API';
 import SingleRow from "./SingleRow";
 
@@ -46,17 +46,10 @@ export default function RemitTable({remitos, setListaRemitos}) {
         "Accesorios",
         "Creado",
         "Recepcion",
-        "Comprometido",
+        "Compromiso",
         "Detalle",
         "Retira"
     ]
-
-
-    const StyledTableCell = styled(TableCell)(({ theme }) => ({
-        // backgroundColor: "gainsboro",
-        backgroundColor: "whitesmoke",
-        // color: theme.palette.common.white,
-        }));
 
     const deleteRemit = async (idRemito) => {
         await borrarRemitoDeLista(idRemito)
@@ -89,7 +82,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
 
                     {cabeceraDeTabla.map( (cabecera, index) => (
                         <StyledTableCell key={index}>
-                           <Typography variant="caption">{cabecera}</Typography> 
+                           <Typography variant="body1">{cabecera}</Typography> 
                         </StyledTableCell>
                     ))}
                     <StyledTableCell align="right" width={180}>

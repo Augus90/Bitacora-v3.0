@@ -9,7 +9,7 @@ import Navigator from './Navigator';
 import Header from './Header';
 import { Route, Routes } from 'react-router-dom';
 import TablePendientes from './TablePendiantes/TablePendientes';
-import TableHistorico from './TableHistorico/TableHistorico';
+import PaginacionRegistros from './TableHistorico/PaginacionRegistros';
 import TabsBitacora from './TabsBitacora/TabsBitacora';
 import Test from './tableTask/Test';
 
@@ -205,7 +205,7 @@ export default function Paperbase() {
             <Routes>
               <Route path='/' Component={TabsBitacora}/>
               <Route path='/Pendientes' Component={TablePendientes}/>
-              <Route path='/Historico' Component={TableHistorico}/>
+              <Route path='/Historico' Component={PaginacionRegistros}/>
               <Route path='/Test' Component={Test}/>
             </Routes>
           </Box>

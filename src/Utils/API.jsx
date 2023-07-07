@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// const baseURL = "http://10.173.5.33:5265/api/"
-const baseURL = "http://localhost:5265/api/"
+const baseURL = "http://10.173.5.33:5265/api/"
+// const baseURL = "http://localhost:5265/api/"
 
 export const getAgencias = async () => {
     let respuesta = null;
@@ -43,4 +43,14 @@ export const editarRemitoDeLista = async (nuevoEditado) =>{
       .then((response) => respuesta = response.data)
       .catch(error => console.log(error))
   return respuesta;
+}
+
+export const getRegistrosPaginados = async (pagina) => {
+  let respuesta = null;
+
+  await axios.get(`${baseURL}Registro/${pagina}`)
+    .then(response => respuesta = response.data)
+    .catch(error => console.log(error))
+  
+    return respuesta;
 }
