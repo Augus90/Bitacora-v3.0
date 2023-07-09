@@ -8,7 +8,7 @@ import Link from '@mui/material/Link';
 import Navigator from './Navigator';
 import Header from './Header';
 import { Route, Routes } from 'react-router-dom';
-import TablePendientes from './TablePendiantes/TablePendientes';
+import TablePendientes from './TablePendientes/TablePendientes';
 import PaginacionRegistros from './TableHistorico/PaginacionRegistros';
 import TabsBitacora from './TabsBitacora/TabsBitacora';
 import Test from './tableTask/Test';
@@ -38,6 +38,16 @@ let theme = createTheme({
       fontWeight: 500,
       fontSize: 26,
       letterSpacing: 0.5,
+    },
+    body1: {
+      fontWeight: 500,
+      fontSize: 12,
+      // letterSpacing: 0.5,
+    },
+    body2: {
+      // fontWeight: 500,
+      fontSize: 15,
+      // letterSpacing: 0.5,
     },
   },
   shape: {
@@ -175,7 +185,7 @@ export default function Paperbase() {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  const isSmUp = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
     <ThemeProvider theme={theme}>

@@ -12,7 +12,7 @@ import { editarRemitoDeLista } from '../../Utils/API';
 import CollapseRow from './CollapseRow';
 
 
-const TableOnProcess = ({remitos, setListaRemitos, isDone}) => {
+const TableOnProcess = ({remitos, setListaRemitos, isDone, setRefresh}) => {
 
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -52,7 +52,7 @@ const TableOnProcess = ({remitos, setListaRemitos, isDone}) => {
                     ))}
                     <StyledTableCell align="right" width={180}>
                         <Tooltip title="Reload">
-                            <IconButton>
+                            <IconButton onClick={() => setRefresh(true)}>
                                 <RefreshIcon color="inherit" sx={{ display: 'block' }} />
                             </IconButton>
                         </Tooltip>
@@ -70,7 +70,7 @@ const TableOnProcess = ({remitos, setListaRemitos, isDone}) => {
                 })}
               </TableBody>
               <TableRow>
-                <StyledTableCell colSpan={3}><Typography variant='h6'>Total</Typography></StyledTableCell>
+                <StyledTableCell colSpan={3}><Typography fontSize={20}>Total</Typography></StyledTableCell>
                 <StyledTableCell>   
                     {remitos.reduce((accum, item) => accum + item.e4, 0)}
                 </StyledTableCell>

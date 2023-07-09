@@ -9,28 +9,7 @@ import SingleRow from "./SingleRow";
 
 
 
-export default function RemitTable({remitos, setListaRemitos}) {
-
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [openId, setOpenId] = useState(0);
-
-    // useEffect(() => {
-        // if(openId){
-        //     <Popover 
-        //     id={id} 
-        //     open={open} 
-        //     anchorEl={anchorEl} 
-        //     onClose={() => setAnchorEl(false)}
-        //     anchorOrigin={{
-        //         vertical: 'bottom',
-        //         horizontal: 'left',
-        //     }}>
-        //         <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
-        //             {remito.accesorios}
-        //         </Box>
-        // </Popover> 
-        // }      
-    // }, [openId])
+export default function RemitTable({remitos, setListaRemitos, listaDeAgencias}) {
 
     const cabeceraDeTabla = [
         "Estado",
@@ -60,19 +39,6 @@ export default function RemitTable({remitos, setListaRemitos}) {
             .then(lista => setListaRemitos(lista))
     }
 
-
-  
-    const accesoriosPopover = (accesorio) => {
-        // openPopover = openId === id;
-        <Popover id='simple-popper' open={true} anchorEl={anchorEl}>
-            <ClickAwayListener onClickAway={() => setAnchorEl(false)}>
-                <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
-                    {accesorio}
-                </Box>
-            </ClickAwayListener>
-        </Popover> 
-    }
-
     return(
         <Card>
           <Box>
@@ -96,6 +62,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
                         remito={remito}
                         deleteRemit={deleteRemit}
                         setListaRemitos={setListaRemitos}
+                        listaDeAgencias={listaDeAgencias}
                     />
                 ))}
               </TableBody>
@@ -103,6 +70,7 @@ export default function RemitTable({remitos, setListaRemitos}) {
                 {/* <StyledTableCell></StyledTableCell> */}
                 <StyledTableCell></StyledTableCell>
                 <StyledTableCell>Total</StyledTableCell>
+                <StyledTableCell></StyledTableCell>
                 <StyledTableCell>   
                     {remitos.reduce((accum, item) => accum + item.e4, 0)}
                 </StyledTableCell>
@@ -124,7 +92,6 @@ export default function RemitTable({remitos, setListaRemitos}) {
                 <StyledTableCell>
                     {remitos.reduce((accum, item) => accum + item.mrd, 0)}
                 </StyledTableCell>
-                <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>

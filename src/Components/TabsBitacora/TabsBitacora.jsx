@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Content from './Content';
 import {Box, Tab, Tabs, AppBar, Typography} from '@mui/material';
 import { ESTADOS } from '../../Utils/Enums';
-import format from 'date-fns/format';
+import {format, add} from 'date-fns';
 
 function TabPanel({children, value, index}){
     return <div hidden={value !== index} id={value}>
@@ -12,6 +12,9 @@ function TabPanel({children, value, index}){
         )}
     </div>
 }
+
+let tomorrow = add(new Date(), { days: 1});
+
 
 const TabsBitacora = () => {
     const [ tab ,setTab] = useState(0);
@@ -33,7 +36,7 @@ const TabsBitacora = () => {
             <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
                 <Content
                 filtro={ESTADOS.EN_PROCESO}
-                fecha={Date.now.toString()}
+                fecha={format(Date.now(),'dd/MM/yyyy')}
                 />
             </Box>
         </TabPanel>
@@ -41,12 +44,17 @@ const TabsBitacora = () => {
             <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
                 <Content
                 filtro={ESTADOS.FINALIZADO}
-                fecha={Date.now.toString()}
+                fecha={format(Date.now(),'dd/MM/yyyy')}
                 />
             </Box>
         </TabPanel>
         <TabPanel value={tab} index={2}>
-          <Typography>Mañana</Typography>
+        <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
+                <Content
+                filtro={ESTADOS.EN_PROCESO}
+                fecha={format(tomorrow,'dd/MM/yyyy')}
+                />
+            </Box>
         </TabPanel>
       </AppBar>
     </div>

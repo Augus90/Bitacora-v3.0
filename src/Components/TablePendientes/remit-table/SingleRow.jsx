@@ -7,8 +7,9 @@ import StateChangeButton from "./StateChangeButton";
 import format from "date-fns/format";
 import InputModal from "../InputModal";
 import { remitoVacio } from "../RemitoVacio";
+import { AccesoriosPopover } from "./AccesoriosPopover";
 
-const SingleRow = ({remito, deleteRemit, setListaRemitos}) => {
+const SingleRow = ({remito, deleteRemit, setListaRemitos, listaDeAgencias}) => {
 
     const StyledTableRow = styled(TableRow)(() => ({
         '&:nth-of-type(odd)': {
@@ -16,34 +17,20 @@ const SingleRow = ({remito, deleteRemit, setListaRemitos}) => {
         },
         }));
 
-
     const [openModal, setOpenModal] = useState(0);
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [openPopover, setOpenPopover] = useState(false);
-
     
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popper' : undefined;
-
-    const handleClickPopover = (event) => {
-      setAnchorEl( event.target );
-      console.log(event.target);
-        setOpenPopover(!openPopover);
-    };
-
-    const getBoundingClient = (event) => (event.currentTarget.getBoundingClientRect())
-
     // const createdAt = remito.createdAt === Date.UTC(0,0,0) ? "" : format(remito.createdAt, 'dd/MM/yyyy') ;
     const fechaEsValida = (fecha) => {
             if(fecha !== format(Date.UTC(0,0,0), 'dd/MM/yyyy')) {
-                return <Typography fontSize={15}> {fecha}</Typography>
+                return <Typography variant="body2"> {fecha}</Typography>
             }
     }
 
 
     const modificarRemitoGlobal = (nuevoRemito, setNuevoRemito) => {
-        setListaRemitos((listaActual) => listaActual.filter(remito => remito.id !== nuevoRemito.id))
-        setListaRemitos((listaActual) => ([...listaActual, nuevoRemito]))
+        setListaRemitos(listaActual => listaActual.map(item => (
+            item.id === nuevoRemito.id ? {...item, ...nuevoRemito} : item
+        )))
         editarRemitoDeLista(nuevoRemito)
         console.log("Remito Editado", nuevoRemito);
         setNuevoRemito(remitoVacio)
@@ -88,27 +75,7 @@ const SingleRow = ({remito, deleteRemit, setListaRemitos}) => {
                 {remito.mrd}
             </TableCell>
             <TableCell>
-                <Button
-                    aria-describedby={id}
-                    id={id}
-                    component="button"
-                    onClick={(e) => handleClickPopover(e)}>
-                    {tieneAccesorios}
-                </Button>
-                <Popover 
-                    id={id} 
-                    open={openPopover} 
-                    anchorEl={anchorEl} 
-                    onClose={() => setOpenPopover(!openPopover)}
-                    anchorOrigin={{
-                        vertical: 'center',
-                        horizontal: 'center',
-                    }}
-                >
-                    <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
-                        {remito.accesorios}
-                    </Box>
-                </Popover> 
+                {remito.accesorios.length > 0 ? <AccesoriosPopover accesorios={remito.accesorios}/> : ''}
             </TableCell>
             <TableCell>
                 {fechaEsValida(remito.createdAt)}
@@ -134,6 +101,7 @@ const SingleRow = ({remito, deleteRemit, setListaRemitos}) => {
                 open={openModal}
                 setOpen={setOpenModal}
                 ramitoActual={remito}
+                listaDeAgencias={listaDeAgencias}
                 modificarRemitoGlobal={modificarRemitoGlobal}
             />
         </StyledTableRow>

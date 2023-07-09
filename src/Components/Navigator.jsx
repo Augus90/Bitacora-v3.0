@@ -13,7 +13,6 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import HistoryIcon from '@mui/icons-material/History';
 import TimerIcon from '@mui/icons-material/Timer';
 import SettingsIcon from '@mui/icons-material/Settings';
-import Content from './TabsBitacora/Content';
 import { Link } from 'react-router-dom';
 
 const categories = [

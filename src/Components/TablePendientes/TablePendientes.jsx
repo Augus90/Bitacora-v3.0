@@ -18,31 +18,32 @@ import { agregarRemitoALista, getAgencias, getListaRemitos } from '../../Utils/A
 import { remitoVacio } from './RemitoVacio';
 
 
-// let listaDeAgencias = [];
+let listaDeAgencias = [];
 
 
 const TablePendientes = () => {
 
     const [listaRemitos, setListaRemitos] = useState([])
     const [open, setOpen] = useState(false);
-
+    const [refresh, setRefresh] = useState(false);
+    const [filtroAgencia, setFiltroAgencia] = useState('');
 
     useEffect( () => {
-      // getAgencias()
-      //   .then(agencias => llenarAgencias(agencias))
-      //   .catch(e => console.error(e))
+      getAgencias()
+        .then(agencias => llenarAgencias(agencias))
+        .catch(e => console.error(e))
       getListaRemitos()
         .then(lista => llenarListaRemitos(lista))
         .catch(e => console.error(e))
-    },[])
+      setRefresh(false)
+    },[refresh])
 
-
-    // function llenarAgencias(jsonDeAgencias){
-    //   listaDeAgencias = jsonDeAgencias.map( agencia => ({
-    //     value: agencia.nombre,
-    //     label: agencia.nombre,
-    //   }))
-    // }
+    function llenarAgencias(jsonDeAgencias){
+      listaDeAgencias = jsonDeAgencias.map( agencia => ({
+        value: agencia.nombre,
+        label: agencia.nombre,
+      }))
+    }
 
     function llenarListaRemitos(listaDeRemitos){
         console.log("Lista de Remitos",listaDeRemitos);
@@ -68,7 +69,7 @@ const TablePendientes = () => {
             elevation={0}
             sx={{ borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}
           >
-            <Toolbar>
+            <Toolbar sx={{padding:1}}>
               <Grid container spacing={2} alignItems="center">
                 <Grid item>
                   <SearchIcon color="inherit" sx={{ display: 'block' }} />
@@ -82,6 +83,7 @@ const TablePendientes = () => {
                       sx: { fontSize: 'default' },
                     }}
                     variant="standard"
+                    onChange={e => setFiltroAgencia(e.target.value)}
                   />
                 </Grid>
                 <Grid item>
@@ -98,11 +100,12 @@ const TablePendientes = () => {
                     listaRemitos={listaRemitos}
                     open={open}
                     setOpen={setOpen}
+                    listaDeAgencias={listaDeAgencias}
                     modificarRemitoGlobal={modificarRemitoGlobal}
                     />
                   
                   <Tooltip title="Reload">
-                    <IconButton>
+                    <IconButton onClick={ () => setRefresh(true)}>
                       <RefreshIcon color="inherit" sx={{ display: 'block' }} />
                     </IconButton>
                   </Tooltip>
@@ -112,8 +115,9 @@ const TablePendientes = () => {
           </AppBar>
           {/* <Typography color="text.secondary" align="center"> */}
             <RemitTable
-              remitos={listaRemitos}
+              remitos={listaRemitos.filter(remito => remito.agencia.toLowerCase().includes(filtroAgencia.toLowerCase()))}
               setListaRemitos={setListaRemitos}
+              listaDeAgencias={listaDeAgencias}
             >
             </RemitTable>
           {/* </Typography> */}
