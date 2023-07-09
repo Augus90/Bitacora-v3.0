@@ -10,7 +10,7 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import RemitTable from './remit-table/remits-table';
+import TablePendientes from './remit-table/TablePendientes';
 import { useEffect, useState } from 'react';
 import { Add } from '@mui/icons-material';
 import InputModal from './InputModal';
@@ -21,7 +21,7 @@ import { remitoVacio } from './RemitoVacio';
 let listaDeAgencias = [];
 
 
-const TablePendientes = () => {
+const TablePendientesFrame = () => {
 
     const [listaRemitos, setListaRemitos] = useState([])
     const [open, setOpen] = useState(false);
@@ -113,18 +113,16 @@ const TablePendientes = () => {
               </Grid>
             </Toolbar>
           </AppBar>
-          {/* <Typography color="text.secondary" align="center"> */}
-            <RemitTable
+            <TablePendientes
               remitos={listaRemitos.filter(remito => remito.agencia.toLowerCase().includes(filtroAgencia.toLowerCase()))}
               setListaRemitos={setListaRemitos}
               listaDeAgencias={listaDeAgencias}
             >
-            </RemitTable>
-          {/* </Typography> */}
+            </TablePendientes>
         </Paper>
       </Box>
     </div>
   )
 }
 
-export default TablePendientes
+export default TablePendientesFrame

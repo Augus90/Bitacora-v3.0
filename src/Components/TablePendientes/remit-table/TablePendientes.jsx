@@ -9,7 +9,7 @@ import SingleRow from "./SingleRow";
 
 
 
-export default function RemitTable({remitos, setListaRemitos, listaDeAgencias}) {
+export default function TablePendientes({remitos, setListaRemitos, listaDeAgencias}) {
 
     const cabeceraDeTabla = [
         "Estado",

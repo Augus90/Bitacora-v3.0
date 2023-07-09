@@ -77,7 +77,7 @@ const CollapseRow = ({remito, setListaRemitos, isDone}) => {
                     {remito.accesorios.length > 0 && <AccesoriosPopover accesorios={remito.accesorios}/>}
                 </TableCell>
                 <TableCell>
-                    <Typography>{remito.retira}</Typography>
+                    {remito.retira}
                 </TableCell>
                 <TableCell>
                 <IconButton

@@ -13,7 +13,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import HistoryIcon from '@mui/icons-material/History';
 import TimerIcon from '@mui/icons-material/Timer';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const categories = [
   {
@@ -51,7 +51,9 @@ const itemCategory = {
 export default function Navigator(props) {
   const { ...other } = props;
 
-  const [activo, setActivo] = React.useState('Bitacora');
+  const {pathname} = useLocation();
+  
+  const [activo, setActivo] = React.useState(pathname);
 
   return (
     <Drawer variant="permanent" {...other}>
@@ -73,7 +75,7 @@ export default function Navigator(props) {
             {children.map(({ id: childId, icon, link }) => (
                 <Link key={childId} to={link} style={{textDecoration:"none"}}>
                 <ListItem disablePadding >
-                  <ListItemButton selected={childId === activo} sx={item} onClick={()=> setActivo(childId)}>
+                  <ListItemButton selected={link === activo} sx={item} onClick={()=> setActivo(link)}>
                     <ListItemIcon>{icon}</ListItemIcon>
                     <ListItemText>{childId}</ListItemText>
                   </ListItemButton>

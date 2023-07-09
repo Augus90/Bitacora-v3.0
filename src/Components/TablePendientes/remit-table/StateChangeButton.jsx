@@ -27,12 +27,27 @@ const StateChangeButton = ({remito, setListaRemitos}) => {
         setAnchorEl(null);
     };
 
+    const colorStateChange = (state) => {
+      switch (state){
+        case ESTADOS.CREADO: 
+          return ;
+        case ESTADOS.EN_PROCESO: 
+          return "primary";
+        case ESTADOS.FINALIZADO: 
+          return "success";
+        case ESTADOS.A_DETERMINAR: 
+          return "error";
+        default:
+          return ;
+      }
+    }
+
   return (
     <div>
         <Chip 
             label={remito.estado}
             variant="outlined" 
-            color="primary" 
+            color={colorStateChange(remito.estado)} 
             size='medium'
             icon={<ArrowDropDownIcon/>}
             onClick={handleClick} />

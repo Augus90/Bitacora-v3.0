@@ -14,13 +14,11 @@ export const getAgencias = async () => {
   }
 
 export const getListaRemitos = async () => {
-    let respuesta = null;
-
-    await axios.get(`${baseURL}ListadoRemitos`)
-      .then(response =>respuesta =  response.data)
+    const respuesta = await axios.get(`${baseURL}ListadoRemitos`)
+      // .then(response =>   response.data)
       .catch(error => console.log(error))
 
-    return respuesta;
+    return respuesta.data;
   }
 
 export const agregarRemitoALista = (nuevoRemito) =>{
@@ -38,19 +36,16 @@ export const borrarRemitoDeLista = async (idRemito) => {
   
 export const editarRemitoDeLista = async (nuevoEditado) =>{
   console.log("remito editado",nuevoEditado);
-  let respuesta = null;
-  await axios.put(`${baseURL}ListadoRemitos`, nuevoEditado)
-      .then((response) => respuesta = response.data)
+  const respuesta = await axios.put(`${baseURL}ListadoRemitos`, nuevoEditado)
+      // .then((response) => respuesta = response.data)
       .catch(error => console.log(error))
-  return respuesta;
+  return respuesta.data;
 }
 
 export const getRegistrosPaginados = async (pagina) => {
-  let respuesta = null;
-
-  await axios.get(`${baseURL}Registro/${pagina}`)
-    .then(response => respuesta = response.data)
+  const respuesta = await axios.get(`${baseURL}Registro/${pagina}`)
+    // .then(response => respuesta = response.data)
     .catch(error => console.log(error))
   
-    return respuesta;
+    return respuesta.data;
 }

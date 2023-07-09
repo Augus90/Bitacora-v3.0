@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Delete, Edit } from "@mui/icons-material";
-import {  TableCell, TableHead, TableRow, Button, Box, Popper, Popover, Typography, ClickAwayListener, Card, CardContent } from "@mui/material";
+import {  TableCell, TableHead, TableRow, Button, Box, Popper, Popover, Typography, ClickAwayListener, Card, CardContent, Tooltip } from "@mui/material";
 import { useState } from "react";
 import { borrarRemitoDeLista, editarRemitoDeLista, getListaRemitos} from '../../../Utils/API'
 import StateChangeButton from "./StateChangeButton";
@@ -93,8 +93,12 @@ const SingleRow = ({remito, deleteRemit, setListaRemitos, listaDeAgencias}) => {
                 {remito.retira}
             </TableCell>
             <TableCell>
-                <Button endIcon={<Edit color="action"/>} onClick={() => setOpenModal(true)} ></Button>
-                <Button endIcon={<Delete color="action"/>} onClick={()=>deleteRemit(remito.id)}></Button>
+                <Tooltip title="Editar">
+                    <Button endIcon={<Edit color="action"/>} onClick={() => setOpenModal(true)} ></Button>
+                </Tooltip>
+                <Tooltip title="Borrar">
+                    <Button endIcon={<Delete color="action"/>} onClick={()=>deleteRemit(remito.id)}></Button>
+                </Tooltip>
             </TableCell>
             <InputModal
                 setListaRemitos={setListaRemitos}
