@@ -7,7 +7,7 @@ const PaginacionRegistros = () => {
 
   const [page, setPage] = useState(1);
   const [listaRegistros, setListaRegistros] = useState([]);
-  const [maxPage, setMaxPage] = useState(10);
+  const [maxPage, setMaxPage] = useState(20);
 
   const llenarHistorico = (respuesta) => {
     setPage(respuesta.page)

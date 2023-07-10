@@ -51,8 +51,7 @@ export default function TablePendientes({remitos, setListaRemitos, listaDeAgenci
                            <Typography variant="body1">{cabecera}</Typography> 
                         </StyledTableCell>
                     ))}
-                    <StyledTableCell align="right" width={180}>
-                    </StyledTableCell>
+                    <StyledTableCell></StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

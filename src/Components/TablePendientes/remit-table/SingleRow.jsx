@@ -8,6 +8,7 @@ import format from "date-fns/format";
 import InputModal from "../InputModal";
 import { remitoVacio } from "../RemitoVacio";
 import { AccesoriosPopover } from "./AccesoriosPopover";
+import MenuDeAcciones from "./MenuDeAcciones";
 
 const SingleRow = ({remito, deleteRemit, setListaRemitos, listaDeAgencias}) => {
 
@@ -17,7 +18,8 @@ const SingleRow = ({remito, deleteRemit, setListaRemitos, listaDeAgencias}) => {
         },
         }));
 
-    const [openModal, setOpenModal] = useState(0);
+    const [openModal, setOpenModal] = useState(false);
+    const [openMenu, setOpenMenu] = useState(false);
     
     // const createdAt = remito.createdAt === Date.UTC(0,0,0) ? "" : format(remito.createdAt, 'dd/MM/yyyy') ;
     const fechaEsValida = (fecha) => {
@@ -38,6 +40,10 @@ const SingleRow = ({remito, deleteRemit, setListaRemitos, listaDeAgencias}) => {
       }    
 
     const tieneAccesorios = remito.accesorios.length > 0 ? "ACC" : "";
+
+    const action = () => {
+        console.log("Action");
+    }
 
     return(
         <StyledTableRow 
@@ -93,12 +99,10 @@ const SingleRow = ({remito, deleteRemit, setListaRemitos, listaDeAgencias}) => {
                 {remito.retira}
             </TableCell>
             <TableCell>
-                <Tooltip title="Editar">
-                    <Button endIcon={<Edit color="action"/>} onClick={() => setOpenModal(true)} ></Button>
-                </Tooltip>
-                <Tooltip title="Borrar">
-                    <Button endIcon={<Delete color="action"/>} onClick={()=>deleteRemit(remito.id)}></Button>
-                </Tooltip>
+                <MenuDeAcciones
+                    open={openMenu}
+                    accion={action}
+                />
             </TableCell>
             <InputModal
                 setListaRemitos={setListaRemitos}
