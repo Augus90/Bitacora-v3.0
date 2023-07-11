@@ -1,6 +1,7 @@
-import { Typography,Table,TableBody,TableCell,TableHead,TableContainer,TableRow } from '@mui/material'
+import { Typography,Table,TableBody,TableCell,TableHead,TableContainer,TableRow,IconButton } from '@mui/material'
 import Paper from '@mui/material/Paper';
 import { StyledTableCell } from '../../Utils/Styles';
+import RestoreIcon from '@mui/icons-material/Restore';
 
 const TableHistorico = ({listaRegistros}) => {
 
@@ -27,23 +28,29 @@ const TableHistorico = ({listaRegistros}) => {
         <TableHead>
           <TableRow>
             {cabeceraDeTabla.map((cabecera, index)=> (
-                <StyledTableCell key={index}>
+              <StyledTableCell key={index}>
                     <Typography marginY={2} variant='body1'>{cabecera.cabecera}</Typography>
                 </StyledTableCell>
             ))}
+            <StyledTableCell></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
             {listaRegistros.map((registo)=>{
-                return <TableRow
-                key={registo.id}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
+              return <TableRow
+              key={registo.id}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
                     {cabeceraDeTabla.map((item, index) => (
                         <TableCell key={index} height={"20px"} component="th" scope="row">
                             <Typography>{registo[item.cuerpo]}</Typography>
                         </TableCell>
                     ))}
+                    <TableCell>
+                      <IconButton aria-label="delete" color="default">
+                        <RestoreIcon />
+                      </IconButton>
+                    </TableCell>
             </TableRow>
             })}
 

@@ -2,11 +2,11 @@ import styled from "@emotion/styled";
 import { Delete, Edit } from "@mui/icons-material";
 import {  TableCell, TableHead, TableRow, Button, Box, Popper, Popover, Typography, ClickAwayListener, Card, CardContent, Tooltip } from "@mui/material";
 import { useState } from "react";
-import { borrarRemitoDeLista, editarRemitoDeLista, getListaRemitos} from '../../../Utils/API'
+import { borrarRemitoDeLista, editarRemitoDeLista, getListaRemitos} from '../../../../Utils/API'
 import StateChangeButton from "./StateChangeButton";
 import format from "date-fns/format";
-import InputModal from "../InputModal";
-import { remitoVacio } from "../RemitoVacio";
+import InputModal from "../../InputModal";
+import { remitoVacio } from "../../RemitoVacio";
 import { AccesoriosPopover } from "./AccesoriosPopover";
 import MenuDeAcciones from "./MenuDeAcciones";
 

@@ -3,13 +3,12 @@ import styled from "@emotion/styled";
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { Box, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Collapse, Typography, Link, Popper, ClickAwayListener, Grid } from "@mui/material";
+import { Box, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Collapse, Typography, Link, Popper, ClickAwayListener, Grid, Paper } from "@mui/material";
 import { useState } from "react";
 import { ESTADOS } from '../../Utils/Enums';
 import { editarRemitoDeLista } from '../../Utils/API';
 import { format } from 'date-fns';
-import { AccesoriosPopover } from '../TablePendientes/remit-table/AccesoriosPopover';
-
+import { AccesoriosPopover } from '../TablePendientes/TablePendientes/Rows/AccesoriosPopover';
 const CollapseRow = ({remito, setListaRemitos, isDone}) => {
 
     const [open, setOpen] = useState(false);
@@ -90,9 +89,10 @@ const CollapseRow = ({remito, setListaRemitos, isDone}) => {
                 </TableCell>          
             </StyledTableRow>
             <StyledTableRow>
-              <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={13}>
+              <TableCell style={{ padding:0 }} colSpan={13}>
                 <Collapse in={open} timeout="auto" unmountOnExit>
-                <Box container justifyContent='center'>
+                <Box container justifyContent='center' sx={{padding: 0}}>
+                  <Paper elevation={-10}>  
                   <Grid item >
                     <Table size='small'>
                         <TableHead>
@@ -113,6 +113,7 @@ const CollapseRow = ({remito, setListaRemitos, isDone}) => {
                         </TableBody>
                         </Table>
                   </Grid>
+                </Paper>
                 </Box>
                 </Collapse>
               </TableCell>

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Chip, Menu, MenuItem } from '@mui/material'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { ESTADOS } from '../../../Utils/Enums';
-import { editarRemitoDeLista } from '../../../Utils/API';
+import { ESTADOS } from '../../../../Utils/Enums';
+import { editarRemitoDeLista } from '../../../../Utils/API';
 
 const StateChangeButton = ({remito, setListaRemitos}) => {
 

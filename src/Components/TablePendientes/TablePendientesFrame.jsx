@@ -10,7 +10,7 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import TablePendientes from './remit-table/TablePendientes';
+import TablePendientes from './TablePendientes/TablePendientes';
 import { useEffect, useState } from 'react';
 import { Add } from '@mui/icons-material';
 import InputModal from './InputModal';

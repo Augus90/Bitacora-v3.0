@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Paper, Menu, MenuItem, MenuList, Typography, Tooltip, Button, ListItemText, IconButton } from '@mui/material'
 import { Edit, ContentCut, Delete, MoreHoriz } from '@mui/icons-material'
 // import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import SaveIcon from '@mui/icons-material/Save';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
 
@@ -55,6 +56,16 @@ const MenuDeAcciones = ({action}) => {
                 </ListItemIcon>
                 <ListItemText>
                 BORRAR
+                </ListItemText>
+                {/* </Tooltip> */}
+            </MenuItem>
+            <MenuItem onClick={()=>saveRemit(remito.id)} disabled>
+                {/* <Tooltip title="Borrar"> */}
+                <ListItemIcon>
+                    <SaveIcon/>
+                </ListItemIcon>
+                <ListItemText>
+                Guardar
                 </ListItemText>
                 {/* </Tooltip> */}
             </MenuItem>

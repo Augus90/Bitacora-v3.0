@@ -5,7 +5,7 @@ import { Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Button, Po
 import { useState } from "react";
 import { StyledTableCell } from '../../../Utils/Styles';
 import { borrarRemitoDeLista, getListaRemitos} from '../../../Utils/API';
-import SingleRow from "./SingleRow";
+import SingleRow from "./Rows/SingleRow";
 
 
 
