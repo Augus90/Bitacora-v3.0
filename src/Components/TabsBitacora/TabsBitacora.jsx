@@ -28,7 +28,7 @@ const TabsBitacora = () => {
         <AppBar component="div" position="static" elevation={0} sx={{ zIndex: 0 }}>
         <Tabs value={tab} textColor="inherit" onChange={handleTabChange}>
           <Tab label="Diario" value={0}/>
-          <Tab label="Termiando" value={1}/>
+          <Tab label="Terminado" value={1}/>
           <Tab label="Mañana" value={2}/>
         </Tabs>
 

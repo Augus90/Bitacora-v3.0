@@ -24,13 +24,13 @@ export const getListaRemitos = async () => {
 export const agregarRemitoALista = (nuevoRemito) =>{
     console.log("nuevo remito",nuevoRemito);
     axios.post(`${baseURL}ListadoRemitos`, nuevoRemito)
-        .then((response) => console.log("Respuesta de post ",response.data))
+        // .then((response) => console.log("Respuesta de post ",response.data))
         .catch(error => console.log(error))
 }
 
 export const borrarRemitoDeLista = async (idRemito) => {
     await axios.delete(`${baseURL}ListadoRemitos/${idRemito}`)
-        .then((response) => console.log("Respuesta de delete ",response.data))
+        // .then((response) => console.log("Respuesta de delete ",response.data))
         .catch(error => console.log("error", error))
     }
   
@@ -49,3 +49,16 @@ export const getRegistrosPaginados = async (pagina) => {
   
     return respuesta.data;
 }
+
+export const agregarRemitoAlRegistro = (nuevoRemitoParaRegistro) =>{
+  console.log("nuevo Registro",nuevoRemitoParaRegistro);
+  axios.post(`${baseURL}registro`, nuevoRemitoParaRegistro)
+      // .then((response) => console.log("Respuesta de post ",response.data))
+      .catch(error => console.log(error))
+}
+
+export const borrarRegistroDeLista = async (idRegistro) => {
+  await axios.delete(`${baseURL}registro/${idRegistro}`)
+      // .then((response) => console.log("Respuesta de delete ",response.data))
+      .catch(error => console.log("error", error))
+  }

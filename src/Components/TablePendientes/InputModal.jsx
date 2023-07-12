@@ -5,7 +5,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Autocomplete from '@mui/material/Autocomplete';
-import { Grid, Container, TextField, Divider, Button, Select, MenuItem, InputLabel, Stack, Paper, FormHelperText, Typography } from '@mui/material';
+import { Grid, Container, TextField, Divider, Button, Select, MenuItem, InputLabel, Stack, Paper, FormHelperText, Typography, Box } from '@mui/material';
+import ChecklistIcon from '@mui/icons-material/Checklist';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { agregarRemitoALista, getAgencias } from '../../Utils/API';
 import { remitoVacio } from './RemitoVacio';
@@ -51,9 +52,14 @@ const InputModal = ({ ramitoActual = remitoVacio, listaDeAgencias, open, setOpen
         fullWidth={true}
     >
     <form onSubmit={onSubmitRemit}>
-        <DialogTitle id="alert-dialog-title" >
-            <Typography variant='h4' >{nuevoRemito.id ?  "Editar Remito" : "Nuevo Remito"}</Typography>
-        </DialogTitle>
+        <Box sx={{backgroundColor: "#009be5", color: "#FFF"}}>
+            <DialogTitle id="alert-dialog-title" >
+                <Stack spacing={2} direction={'row'} alignItems={'center'}>
+                    <ChecklistIcon fontSize='large'/>
+                    <Typography variant='h4' >{nuevoRemito.id ?  "Editar Remito" : "Nuevo Remito"}</Typography>
+                </Stack>
+            </DialogTitle>
+        </Box>
         <DialogContent>
             <Typography paddingLeft={2}>Información del remito</Typography>
             <Grid container spacing={2} paddingTop={2} paddingLeft={2}>

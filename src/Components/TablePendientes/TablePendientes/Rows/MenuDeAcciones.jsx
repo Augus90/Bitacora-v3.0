@@ -5,6 +5,7 @@ import { Edit, ContentCut, Delete, MoreHoriz } from '@mui/icons-material'
 import SaveIcon from '@mui/icons-material/Save';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { ESTADOS } from '../../../../Utils/Enums';
+import { agregarRemitoAlRegistro } from '../../../../Utils/API';
 
 
 const MenuDeAcciones = ({remito, setOpenModal, deleteRemit}) => {
@@ -14,9 +15,23 @@ const MenuDeAcciones = ({remito, setOpenModal, deleteRemit}) => {
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const elminarDeLaLista = registo => {
+        deleteRemit(registo.id)
+    }
+    
+    const agregarAlRegistro = async registo => {
+        await agregarRemitoAlRegistro(registo);
+    }
+
+    const saveRemit = registo => {
+        elminarDeLaLista(registo);
+        agregarAlRegistro(registo);
+    }
 
     return (
     <>
@@ -57,7 +72,7 @@ const MenuDeAcciones = ({remito, setOpenModal, deleteRemit}) => {
                 </ListItemText>
             </MenuItem>
             <MenuItem 
-            onClick={()=>saveRemit(remito.id)} 
+            onClick={()=>saveRemit(remito)} 
             disabled={remito.estado === ESTADOS.FINALIZADO ? false : true}>
                 <ListItemIcon>
                     <SaveIcon/>

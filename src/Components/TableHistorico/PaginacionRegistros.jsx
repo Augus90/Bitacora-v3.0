@@ -37,6 +37,7 @@ const PaginacionRegistros = () => {
         <Paper sx={{ margin: 'auto', overflow: 'hidden' }}>
           <TableHistorico
             listaRegistros={listaRegistros}
+            setListaRegistros={setListaRegistros}
           />
         </Paper>
       </Box>

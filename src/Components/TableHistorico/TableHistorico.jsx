@@ -1,10 +1,10 @@
-import { Typography,Table,TableBody,TableCell,TableHead,TableContainer,TableRow,IconButton } from '@mui/material'
+import { Typography,Table,TableBody,TableCell,TableHead,TableContainer,TableRow,IconButton, Tooltip } from '@mui/material'
 import Paper from '@mui/material/Paper';
 import { StyledTableCell } from '../../Utils/Styles';
 import RestoreIcon from '@mui/icons-material/Restore';
+import { borrarRegistroDeLista } from '../../Utils/API';
 
-const TableHistorico = ({listaRegistros}) => {
-
+const TableHistorico = ({listaRegistros, setListaRegistros}) => {
 
     const cabeceraDeTabla = [
         {cabecera: "Agencia", cuerpo: "agencia" },
@@ -22,6 +22,18 @@ const TableHistorico = ({listaRegistros}) => {
         {cabecera: "Completado", cuerpo: "completedAt" },
         {cabecera: "Detalle", cuerpo: "detalle" },
     ]
+
+    const elminarDelRegistro = registo => {
+      setListaRegistros(actual => actual.filter(registroAFiltrar => registroAFiltrar.id !== registo.id))
+    }
+    const restaurarElRegistro = registo => {
+      borrarRegistroDeLista(registo);
+    }
+
+    const handleRestaurar = registo => {
+      elminarDelRegistro(registo);
+      restaurarElRegistro(registo.id);
+    }
 
     return (<TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -47,9 +59,14 @@ const TableHistorico = ({listaRegistros}) => {
                         </TableCell>
                     ))}
                     <TableCell>
-                      <IconButton aria-label="delete" color="default">
-                        <RestoreIcon />
-                      </IconButton>
+                      <Tooltip title={"Restaurar"}>
+                        <IconButton 
+                          aria-label="delete" 
+                          color="default"
+                          onClick={() => handleRestaurar(registo)}>
+                          <RestoreIcon />
+                        </IconButton>
+                      </Tooltip>
                     </TableCell>
             </TableRow>
             })}
