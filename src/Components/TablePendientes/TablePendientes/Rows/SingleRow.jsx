@@ -101,7 +101,9 @@ const SingleRow = ({remito, deleteRemit, setListaRemitos, listaDeAgencias}) => {
             <TableCell>
                 <MenuDeAcciones
                     open={openMenu}
-                    accion={action}
+                    deleteRemit={deleteRemit}
+                    setOpenModal={setOpenModal}
+                    remito={remito}
                 />
             </TableCell>
             <InputModal

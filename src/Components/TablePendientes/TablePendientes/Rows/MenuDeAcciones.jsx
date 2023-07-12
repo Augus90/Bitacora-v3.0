@@ -4,9 +4,10 @@ import { Edit, ContentCut, Delete, MoreHoriz } from '@mui/icons-material'
 // import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import SaveIcon from '@mui/icons-material/Save';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import { ESTADOS } from '../../../../Utils/Enums';
 
 
-const MenuDeAcciones = ({action}) => {
+const MenuDeAcciones = ({remito, setOpenModal, deleteRemit}) => {
     
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -40,34 +41,30 @@ const MenuDeAcciones = ({action}) => {
         >
         <MenuList>
             <MenuItem onClick={() => setOpenModal(true)} >
-                {/* <Tooltip title="Editar"> */}
                     <ListItemIcon>
                         <Edit/>
                     </ListItemIcon>
                     <ListItemText>
                     EDITAR
                     </ListItemText>
-                {/* </Tooltip> */}
             </MenuItem>
             <MenuItem onClick={()=>deleteRemit(remito.id)}>
-                {/* <Tooltip title="Borrar"> */}
                 <ListItemIcon>
                     <Delete/>
                 </ListItemIcon>
                 <ListItemText>
                 BORRAR
                 </ListItemText>
-                {/* </Tooltip> */}
             </MenuItem>
-            <MenuItem onClick={()=>saveRemit(remito.id)} disabled>
-                {/* <Tooltip title="Borrar"> */}
+            <MenuItem 
+            onClick={()=>saveRemit(remito.id)} 
+            disabled={remito.estado === ESTADOS.FINALIZADO ? false : true}>
                 <ListItemIcon>
                     <SaveIcon/>
                 </ListItemIcon>
                 <ListItemText>
                 Guardar
                 </ListItemText>
-                {/* </Tooltip> */}
             </MenuItem>
         </MenuList>
     </Menu>
